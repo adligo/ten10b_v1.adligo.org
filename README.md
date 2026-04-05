@@ -111,7 +111,7 @@ i.e.
 ```
 123,456,789.123,456,789,012
 ```
-##### The Ten 5-1 Comma Sequence Convention
+##### The Ten-5-1 Comma Sequence Convention
 
 This convention is for larger numbers where it would help to identify every 25 decimal places.  Similar to the three-digit convention, we start at the decimal place and then move away. Adding commas in the following sequence;
 
@@ -143,7 +143,7 @@ Because of the [implementation requirements](#implementation-requirements) we re
 
 ### TNumber
 
-This is the abstract class with static factory methods named <i><b>from*</b></i> (pronounced from star).  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
+This is the abstract class with static factory methods named <i><b>from* (pronounced from star)</b></i>.  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
 
 i.e. [Java](#java) Psudocode
 
@@ -165,7 +165,7 @@ number n = t.toNumber(); // IEEE 754 per the ECMA Script standard
 
 ### TInt
 
-This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It SHOULD provide various methods <i><b>to*</b></i> (pronounced to star) which convert the TInt into the local language's class or type system.
+This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It SHOULD provide various methods <i><b>to* (pronounced to star)</b></i> which convert the TInt into the local language's class or type system.
 
 It MUST return false from the <i><b>isDecimalOrFraction</b></i> method.  It MUST return false to the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.
 
@@ -174,7 +174,7 @@ It MUST return false from the <i><b>isLoop</b></i> method.  It MAY provide a tru
 
 ### TFraction
 
-TFraction is the representation of a [Ten10b Integer Fraction](#integer-fractions).  It MUST return a TInt result for the <i><b>getNumerator</b></i> and <i><b>getDenominator</b></i> methods.  It MUST return true if either the numerator or denominator returns true for the <i><b>isBig<b></i> method.
+TFraction is the representation of a [Ten10b Integer Fraction](#integer-fractions).  It MUST return a TInt result from the <i><b>getNumerator</b></i> and <i><b>getDenominator</b></i> methods.  It MUST return true if either the numerator or denominator returns true for the <i><b>isBig</b></i> method.
 
 It MUST return true from the isDecimalOrFraction method.  It MUST return false from the <i><b>isDecimal</b></i> method.  It MUST return true from the <i><b>isFraction</b></i> method.  It MUST return false from the <i><b>isLoop</b></i> method.
 
