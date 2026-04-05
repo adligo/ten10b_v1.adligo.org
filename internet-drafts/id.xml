@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rfc version="3" ipr="trust200902" docName="draft-morgan-ten64-00" 
+     submissionType="IETF" category="info" xml:lang="en">
+  <front>
+    <title abbrev="Ten10b">Text Encoded Base Ten Numbers Version 1 (Ten10b_v1)</title>
+    
+    <author initials="S." surname="Morgan" fullname="Scott Morgan">
+      <organization>Adligo Inc.</organization>
+      <address>
+        <email>scott@adligo.com</email>
+        <uri>https://github.com/adligo/ten10b_v1.adligo.org</uri>
+      </address>
+    </author>
+
+    <date year="2026" month="April" day="1"/>
+
+    <area>Applications and Real-Time</area>
+    <workgroup>Internet Engineering Task Force</workgroup>
+    
+    <abstract>
+        
+    </abstract>
+  </front>
+  
+  <middle>
+    <section anchor="intro">
+      <name>Introduction</name>
+      
+      <section anchor="requirements">
+        <name>Requirements Language</name>
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and 
+        "OPTIONAL" in this document are to be interpreted as described in 
+        BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and 
+        only when, they appear in all capitals, as shown here.</t>
+        <t>This document aligns with the formal IETF standardization 
+        procedures defined by the Internet Standards Process in BCP 9 
+        <xref target="RFC2026"/>.</t>
+      </section>
+    </section>
+
+    <section anchor="human-readable-verses-human-decipherable" 
+             title="Human-Readable Verses Human-Decipherable">
+    </section>
+
+    <section anchor="special-chars-intro">
+      <name>Special Characters Introduction</name>
+    </section>
+    
+    <section anchor="special-chars">
+      <name>Special Characters and Sequence Details</name>
+    </section>
+
+    <section anchor="alphabet">
+      <name>The Ten64 Alphabet Mappings</name>
+    </section>
+
+    <section anchor="use-cases" title="Use-Cases">
+    </section>
+    
+    <section anchor="binary" title="Binary">
+    </section>
+    
+    <section anchor="related-technologies" title="Related Technologies">
+    </section>
+
+    <section anchor="performance" title="Performance">
+    </section>
+
+    <section anchor="compatibility" title="Compatibility">
+    </section>
+
+    <section anchor="interpretation-conventions" 
+             title="Interpretation Conventions">
+    </section>
+
+    <section anchor="modern-western-numeral-system" 
+             title="Modern Western Numeral System">
+    </section>
+    
+    <section anchor="iana">
+      <name>IANA Considerations</name>
+    </section>
+    
+    <section anchor="commentary" title="Commentary">
+    </section>
+    
+    <section anchor="citations-and-workflow-comments" title="Citations and Workflow Comments">
+    </section>
+  </middle>
+
+  <back>
+    <references>
+      <name>Normative References</name>
+
+      <reference anchor="analog-wikipedia" target="https://en.wikipedia.org/wiki/Analog_device">
+        <front>
+          <title>Analog device</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="binary-number-systems-wikipedia" target="https://en.wikipedia.org/wiki/Binary_number">
+        <front>
+          <title>Binary number</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+
+      <reference anchor="compart" target="https://www.compart.com/en/unicode/U+0305">
+        <front>
+          <title>Unicode Character “̅” (U+0305)</title>
+          <author>
+            <organization>Compart</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Website" value="Compart"/>
+      </reference>
+
+      <reference anchor="endianness-wikipedia" target="https://en.wikipedia.org/wiki/Endianness">
+        <front>
+          <title>Endianness</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="decimals-wikipedia" target="https://en.wikipedia.org/wiki/Decimal">
+        <front>
+          <title>Decimal</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="discrete-system-wikipedia" target="https://en.wikipedia.org/wiki/Discrete_system">
+        <front>
+          <title>Discrete system</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="fractions-wikipedia" target="https://en.wikipedia.org/wiki/Fraction">
+        <front>
+          <title>Fraction</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="ieee-754-wikipedia" target="https://en.wikipedia.org/wiki/IEEE_754">
+        <front>
+          <title>IEEE 754</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="integers-wikipedia" target="https://en.wikipedia.org/wiki/Integer">
+        <front>
+          <title>Integer</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="integral-wikipedia" target="https://en.wikipedia.org/wiki/Integral">
+        <front>
+          <title>Integral</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="line-wrapping-wikipedia" target="https://en.wikipedia.org/wiki/Wrapping_(text)">
+        <front>
+          <title>Wrapping (text)</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="modern-western-numeral-system" target="https://www.ietf.org/archive/id/draft-morgan-ten64-00.html#modern-western-numeral-system">
+        <front>
+          <title>Text Encoded Base 64 Numbers (Ten64): Modern Western Numeral System</title>
+          <author initials="S." surname="Morgan" fullname="Scott Morgan">
+            <organization>Adligo Inc.</organization>
+          </author>
+          <date year="2026" month="April" day="1"/>
+        </front>
+        <seriesInfo name="Internet-Draft" value="draft-morgan-ten64-00"/>
+      </reference>
+
+
+      <reference anchor="positional-number-systems-wikipedia" target="https://en.wikipedia.org/wiki/Numeral_system#Positional_systems_in_detail">
+        <front>
+          <title>Numeral system: Positional systems in detail</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="ten64" target="https://www.ietf.org/archive/id/draft-morgan-ten64-00.html">
+        <front>
+          <title>Text Encoded Base 64 Numbers (Ten64)</title>
+          <author initials="S." surname="Morgan" fullname="Scott Morgan">
+            <organization>Adligo Inc.</organization>
+          </author>
+          <date year="2026" month="April" day="1"/>
+        </front>
+        <seriesInfo name="Internet-Draft" value="draft-morgan-ten64-00"/>
+      </reference>
+
+
+      <reference anchor="utf-8-rfc-3629" target="https://www.rfc-editor.org/info/rfc3629">
+        <front>
+          <title>UTF-8, a transformation format of ISO 10646</title>
+          <author initials="F." surname="Yergeau" fullname="François Yergeau"/>
+          <date year="2003" month="November"/>
+        </front>
+        <seriesInfo name="RFC" value="3629"/>
+        <seriesInfo name="STD" value="63"/>
+      </reference>
+    </references>
+    
+    <references>
+      <name>Informative References</name>
+    </references>
+
+    <section anchor="acknowledgments" numbered="false" title="Acknowledgments">
+    </section>
+  </back>
+</rfc>
