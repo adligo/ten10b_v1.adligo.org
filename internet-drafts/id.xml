@@ -204,6 +204,22 @@
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
 
+      <reference anchor="java-language-specification" target="https://docs.oracle.com/javase/specs/jls/se21/html/index.html">
+        <front>
+          <title>The Java Language Specification, Java SE 21 Edition</title>
+          <author initials="J." surname="Gosling" fullname="James Gosling"/>
+          <author initials="B." surname="Joy" fullname="Bill Joy"/>
+          <author initials="G." surname="Steele" fullname="Guy Steele"/>
+          <author initials="G." surname="Bracha" fullname="Gilad Bracha"/>
+          <author initials="A." surname="Buckley" fullname="Alex Buckley"/>
+          <author initials="D." surname="Smith" fullname="Daniel Smith"/>
+          <author initials="G." surname="Bierman" fullname="Gavin Bierman"/>
+          <date year="2023" month="September"/>
+        </front>
+        <seriesInfo name="Publisher" value="Oracle America, Inc."/>
+      </reference>
+
+
       <reference anchor="line-wrapping-wikipedia" target="https://en.wikipedia.org/wiki/Wrapping_(text)">
         <front>
           <title>Wrapping (text)</title>
@@ -249,6 +265,16 @@
         <seriesInfo name="Internet-Draft" value="draft-morgan-ten64-00"/>
       </reference>
 
+      <reference anchor="typescript" target="https://www.typescriptlang.org/">
+        <front>
+          <title>TypeScript: Typed JavaScript at Any Scale</title>
+          <author>
+            <organization>Microsoft</organization>
+          </author>
+          <date year="2026" month="April"/>
+        </front>
+        <seriesInfo name="Website" value="TypeScript"/>
+      </reference>
 
       <reference anchor="utf-8-rfc-3629" target="https://www.rfc-editor.org/info/rfc3629">
         <front>
