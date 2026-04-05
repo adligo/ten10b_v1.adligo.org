@@ -104,6 +104,18 @@
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
 
+      <reference anchor="base-10">
+        <front>
+          <title>The Art of Computer Programming, Volume 2: Seminumerical Algorithms (3rd Edition)</title>
+          <author initials="D.E." surname="Knuth" fullname="Donald E. Knuth">
+            <organization/>
+          </author>
+          <date year="1997"/>
+        </front>
+        <seriesInfo name="Publisher" value="Addison-Wesley"/>
+        <format type="TXT" target="Section 4.1: Positional Number Systems"/>
+      </reference>
+
       <reference anchor="binary-number-systems-wikipedia" target="https://en.wikipedia.org/wiki/Binary_number">
         <front>
           <title>Binary number</title>
@@ -136,6 +148,16 @@
           <date year="2026" month="April"/>
         </front>
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="decimal-conversion-c++" target="https://en.cppreference.com/w/cpp/types/numeric_limits/max_digits10">
+        <front>
+          <title>std::numeric_limits&lt;T&gt;::max_digits10</title>
+          <author>
+            <organization>cppreference.com</organization>
+          </author>
+          <date year="2026" month="April" day="5"/>
+        </front>
       </reference>
 
       <reference anchor="decimals-wikipedia" target="https://en.wikipedia.org/wiki/Decimal">
@@ -219,6 +241,18 @@
         <seriesInfo name="Publisher" value="Oracle America, Inc."/>
       </reference>
 
+      <reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259">
+        <front>
+          <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+          <author initials="T." surname="Bray" fullname="T. Bray" role="editor">
+            <organization/>
+          </author>
+          <date year="2017" month="December"/>
+        </front>
+        <seriesInfo name="STD" value="90"/>
+        <seriesInfo name="RFC" value="8259"/>
+        <seriesInfo name="DOI" value="10.17487/RFC8259"/>
+      </reference>
 
       <reference anchor="line-wrapping-wikipedia" target="https://en.wikipedia.org/wiki/Wrapping_(text)">
         <front>
@@ -284,6 +318,29 @@
         </front>
         <seriesInfo name="RFC" value="3629"/>
         <seriesInfo name="STD" value="63"/>
+      </reference>
+      
+      <reference anchor="xml-wc3" target="https://www.w3.org/TR/2008/REC-xml-20081126/">
+        <front>
+          <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
+          <author initials="T." surname="Bray" fullname="Tim Bray" role="editor">
+            <organization/>
+          </author>
+          <author initials="J." surname="Paoli" fullname="Jean Paoli" role="editor">
+            <organization/>
+          </author>
+          <author initials="C.M." surname="Sperberg-McQueen" fullname="C. M. Sperberg-McQueen" role="editor">
+            <organization/>
+          </author>
+          <author initials="E." surname="Maler" fullname="Eve Maler" role="editor">
+            <organization/>
+          </author>
+          <author initials="F." surname="Yergeau" fullname="François Yergeau" role="editor">
+            <organization/>
+          </author>
+          <date year="2008" month="November" day="26"/>
+        </front>
+        <seriesInfo name="W3C Recommendation" value="REC-xml-20081126"/>
       </reference>
     </references>
     

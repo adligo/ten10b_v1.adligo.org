@@ -54,7 +54,7 @@ Any of the five number types MAY have a sign prefix which is optional.  The sign
 
 ### Integers
 
-Integers are built in the [Modern Western Numeral System](#modern-western-numeral-system) and are well-known and have many identical definitions, [i.e. Wikipedia](#integers-wikipedia).  Integers are arranged in descending order ([aka. little ending](#endianness-wikipedia)).  Integers MUST
+Integers are built with the [Modern Western Numeral System](#modern-western-numeral-system) and are well-known and have many identical definitions, [i.e. Wikipedia](#integers-wikipedia).  Integers are arranged in descending order ([aka. little ending](#endianness-wikipedia)).  Integers MUST
 consist of only the [Natural Numbers](#natural-number-alphabet).  Integers MUST NOT have one or more zeros on their left side.  Integers MAY contain commas between characters in the [Natural Number Alphabet](#natural-number-alphabet).
 
 ###### Example A
@@ -83,17 +83,17 @@ Integer Loops consist of one or more characters from the [Natural Number Alphabe
 
 ### Decimals
 
-Decimals consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet) separated by a [decimal point](#decimals).  Decimals MUST have one and only one [decimal point](#decimals-wikipedia).  Decimals MUST NOT contain a fraction symbol '/'.  The text to the left side of the decimal point is called the integer part and MUST conform to the [Integer Ten10b rules](#integers).  The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros.  The purpose of the trailing zeros is to communicate precision.
+Decimals consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet) separated by a [decimal point](#decimals).  Decimals MUST have one and only one [decimal point](#decimals-wikipedia).  Decimals MUST NOT contain a fraction symbol '/'.  The text to the left side of the decimal point is called the integer part and MUST conform to the [Integer Ten10b rules](#integers).  The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros (aka. zeros at the right side of the Ten10b character sequence).  The purpose of the trailing zeros is to communicate precision.
 
 ###### Example D
 
 ```
-123.456,678
+123.456,678,000
 ```
 
 ### Decimal Loops
 
-Decimal Loops consist of a [Ten10b style Decimal](#decimals) followed by a [Ten10b style Integer Loop](#integer-loops).  Like all Ten10b number sequences, Decimal Loops MUST NOT contain any whitespace characters.
+Decimal Loops consist of a [Ten10b style Decimal](#decimals) followed by a [Ten10b style Integer Loop](#integer-loops).  Like all Ten10b number sequences, Decimal Loops MUST NOT contain any whitespace characters.  Note, although not a hard limit for [single precision and double precision floating-point numbers](#ieee-754), generally there is a respective [9 and 17 rule provided by C++](#decimal-conversion-c).  However, since floating-point precision MAY increase or vary over time, modern standards SHOULD be sought for conversion algorithms.
 
 ##### Example F
 
@@ -165,7 +165,7 @@ number n = t.toNumber(); // IEEE 754 per the ECMA Script standard
 
 ### TInt
 
-This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It should provide various methods <i><b>to*</b></i> (pronounced to star) which convert the TInt into the local language class or type system.
+This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It SHOULD provide various methods <i><b>to*</b></i> (pronounced to star) which convert the TInt into the local language's class or type system.
 
 It MUST return false from the <i><b>isDecimalOrFraction</b></i> method.  It MUST return false to the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.
 
@@ -192,7 +192,9 @@ It MUST return false from the isDecimalOrFraction method.  It MUST return false 
 
 TFraction is the representation of a [Ten10b Decimal](#decimals).  It MAY return either true or false from the <i><b>isBig</b></i> method, and SHOULD base this decision around the semantics of the libraries in the language it is implemented in.
 
-It MUST return true from the isDecimalOrFraction method.  It MUST return true from the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.  It MUST return false from the <i><b>isLoop</b></i> method.
+TDecimals MUST be implemented using a BigInteger type (i.e. [BigInt](#ecma-script), [BigInteger](#java-language-specification)) for the numeric part (integer and decimal parts), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).  TDecimals MUST also be implemented using a 2nd BigInteger type (i.e. [BigInt](#ecma-script), [BigInteger](#java-language-specification)) to track the number of [(base/radix 10) decimal places](#base-10), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).
+
+It MUST return true from the <i><b>isDecimalOrFraction</b></i> method.  It MUST return true from the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.  It MUST return false from the <i><b>isLoop</b></i> method.
 
 ### TDecimalLoop
 
@@ -205,19 +207,25 @@ It MUST return true from the <i><b>isDecimalOrFraction</b></i> method.  It MUST 
 
 ### JSON
 
-JSON is based on UTF-8 and by proxy, Ten10b is compatible with JSON strings.
+[JSON](#json-rfc-8259) is based on UTF-8 and by proxy, Ten10b is compatible with [JSON](#json-rfc-8259) strings.
 
-### XCN
+### [XCN](#xcn-github)
 
 Extensible (eXtensible) Classification System is a downstream client and will be compatible by default.
 
 ### XML
 
-XML MAY be based on UTF-8, when it is Ten10b compatible with XML strings.  XML in non UTF-8 character encodings is NOT compatible with Ten10b.
+[XML](#xml-wc3) MAY be based on UTF-8, when it is Ten10b compatible with XML strings.  [XML](#xml-wc3) with non UTF-8 character encodings is NOT compatible with Ten10b.
 
 # Commentary
 
 [@see Ten64 Commentary](#ten64-commentary)
+
+## The Ten10b Acronym
+
+S Morgan:
+
+In an attempt to improve human audibility, I added a small b at the end of the acronym.  It seemed to have a nice ring to it, like two 21B.
 
 ## Citation Commentary
 
@@ -230,6 +238,13 @@ Find or create Academic/Footnote Markdown style and RFC XML style citations to
 
 Wikipedia contributors. "Analog device." *Wikipedia, The Free Encyclopedia*. Accessed April 5, 2026. <https://en.wikipedia.org/wiki/Analog_device>.
 
+##### Base 10
+
+Computers must frequently translate between binary data and human-readable base-10 (decimal) positional number systems.
+
+Knuth, Donald E. *The Art of Computer Programming, Volume 2: Seminumerical Algorithms*. 3rd ed., Addison-Wesley, 1997, pp. 195. (Section 4.1: Positional Number Systems).
+
+
 ##### Binary Number Systems Wikipedia
 
 Wikipedia contributors. "Binary number." *Wikipedia, The Free Encyclopedia*. Accessed April 5, 2026. <https://en.wikipedia.org/wiki/Binary_number>.
@@ -237,6 +252,12 @@ Wikipedia contributors. "Binary number." *Wikipedia, The Free Encyclopedia*. Acc
 ##### Compart
 
 Compart. "Unicode Character “̅” (U+0305)." *Compart*. Accessed April 5, 2026. <https://www.compart.com/en/unicode/U+0305>.
+
+##### Decimal Conversion C++
+
+The C++ standard library provides a specific constant for this exact round-trip serialization guarantee called `max_digits10`.[^1]
+
+[^1]: "std::numeric_limits\<T\>::max_digits10." *cppreference.com*, https://en.cppreference.com/w/cpp/types/numeric_limits/max_digits10. Accessed 5 Apr. 2026.
 
 ##### Decimals Wikipedia
 
@@ -270,9 +291,19 @@ Wikipedia contributors. "Integral." *Wikipedia, The Free Encyclopedia*. Accessed
 
 Gosling, J., Joy, B., Steele, G., Bracha, G., Buckley, A., Smith, D., and Bierman, G. *The Java® Language Specification, Java SE 21 Edition*. Oracle America, Inc., September 2023. Accessed April 5, 2026. <https://docs.oracle.com/javase/specs/jls/se21/html/index.html>.
 
+##### JSON RFC 8259
+
+Many modern APIs use the JSON data interchange format.
+
+Bray, Tim, editor. "The JavaScript Object Notation (JSON) Data Interchange Format." *Internet Engineering Task Force (IETF)*, RFC 8259, Dec. 2017. https://doi.org/10.17487/RFC8259. Accessed 5 Apr. 2026.
+
 ##### Line Wrapping Wikipedia
 
 Wikipedia contributors. "Wrapping (text)." *Wikipedia, The Free Encyclopedia*. Accessed April 5, 2026. <https://en.wikipedia.org/wiki/Wrapping_(text)>.
+
+##### Math International Standard
+
+*Information technology — Language independent arithmetic — Part 1: Integer and floating point arithmetic*, ISO/IEC 10967-1:2012, Jul. 2012.
 
 ##### Modern Western Numeral System
 
@@ -297,3 +328,9 @@ Microsoft. "TypeScript: Typed JavaScript at Any Scale." Accessed April 5, 2026. 
 ##### UTF-8 RFC 3629
 
 Yergeau, F. "UTF-8, a transformation format of ISO 10646." RFC 3629, STD 63, November 2003. <https://www.rfc-editor.org/info/rfc3629>.
+
+The document must be structured according to the W3C XML specification.[^1]
+
+##### XML WC3
+
+Bray, Tim, et al., editors. "Extensible Markup Language (XML) 1.0 (Fifth Edition)." *World Wide Web Consortium (W3C)*, 26 Nov. 2008. https://www.w3.org/TR/xml/. Accessed 5 Apr. 2026.
