@@ -57,7 +57,7 @@ Any of the five number types MAY have a sign prefix which is optional.  The sign
 Integers are built in the [Modern Western Numeral System](#modern-western-numeral-system) and are well-known and have many identical definitions, [i.e. Wikipedia](#integers-wikipedia).  Integers are arranged in descending order ([aka. little ending](#endianness-wikipedia)).  Integers MUST
 consist of only the [Natural Numbers](#natural-number-alphabet).  Integers MUST NOT have one or more zeros on their left side.  Integers MAY contain commas between characters in the [Natural Number Alphabet](#natural-number-alphabet).
 
-####### Example A
+###### Example A
 
 ```
 1,234
@@ -67,7 +67,7 @@ consist of only the [Natural Numbers](#natural-number-alphabet).  Integers MUST 
 
 Integer Fractions consist of a single [numerator](#fractions-wikipedia) and [denominator](#fractions-wikipedia) separated by the fracton symbol '/'.  Both the [numerator](#fractions-wikipedia) and [denominator](#fractions-wikipedia) MUST consist of [Ten10b Integers](#integers).  Integer Fractions MUST contain one and only one fracton symbol '/'.  The fracton symbol MUST NOT be the first or last character in a Integer Fraction character sequence.
 
-####### Example B
+###### Example B
 
 ```
 1,234/2,345
@@ -77,7 +77,7 @@ Integer Fractions consist of a single [numerator](#fractions-wikipedia) and [den
 
 Integer Loops consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet).  All characters in an Integer Loop MUST have a [Compart (aka. Overline)](#compart) (Note this includes commas, in addition to the characters from the [Natural Numbers Alphabet](#natural-number-alphabet)).  Integer Loops MAY have one or more zeros at the left. Integer Loops MAY contain commas between characters in the [Natural Number Alphabet](#natural-number-alphabet).
 
-####### Example C
+###### Example C
 
 &#x0305;0&#x0305;1&#x0305;2&#x0305;,&#x0305;3
 
@@ -85,7 +85,7 @@ Integer Loops consist of one or more characters from the [Natural Number Alphabe
 
 Decimals consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet) separated by a [decimal point](#decimals).  Decimals MUST have one and only one [decimal point](#decimals-wikipedia).  Decimals MUST NOT contain a fraction symbol '/'.  The text to the left side of the decimal point is called the integer part and MUST conform to the [Integer Ten10b rules](#integers).  The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros.  The purpose of the trailing zeros is to communicate precision.
 
-####### Example D
+###### Example D
 
 ```
 123.456,678
@@ -95,7 +95,7 @@ Decimals consist of one or more characters from the [Natural Number Alphabet](#n
 
 Decimal Loops consist of a [Ten10b style Decimal](#decimals) followed by a [Ten10b style Integer Loop](#integer-loops).  Like all Ten10b number sequences, Decimal Loops MUST NOT contain any whitespace characters.
 
-Example F
+##### Example F
 
 123,456.123,34&#x0305;2&#x0305;,&#x0305;3
 ## Commas and Comma Scheme Conventions
@@ -136,14 +136,14 @@ Ten10b implementations MUST guarantee exact equality of number being encoded and
 
 # Implementation Recommendations
 
-Because of the [implementation requirements](#implementation-requirements) we recommend creating a one-to-one type system in the languages of your choice to convey this information.  Essentially, these recommended classes would act as an intermediary between the language type system and the readers and writers of Ten10b.  In addition, we recommend the following class names.
+Because of the [implementation requirements](#implementation-requirements) we recommend creating a one-to-one type system in the languages of your choice to convey this information.  Essentially, these recommended classes would act as an intermediary between the language's type system and the readers and writers of Ten10b.  In addition, noting the capital T at the start of the class names is short for Ten10b, we recommend the following class names.
 
 ## Class Diagram
 
 
 ### TNumber
 
-This is the abstract class with static factory methods named <i><b>from*</b></i> (pronounced from star).  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your system allows method overloading.
+This is the abstract class with static factory methods named <i><b>from*</b></i> (pronounced from star).  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
 
 i.e. [Java](#java) Psudocode
 
