@@ -18,7 +18,49 @@
     <workgroup>Internet Engineering Task Force</workgroup>
     
     <abstract>
-        
+      <t>
+        Ten10b, is a 
+        <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
+        positional number system</xref> designed to be encoded 
+        in <xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">UTF-8</xref> text.
+        Ten10b is based on the system 
+        you likely learned in elementary school and used throughout your mathematics 
+        courses.  However, it is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare"> 
+        discrete system</xref> designed to provide the maximum clarity for the serialization of numbers 
+        (which fit on a single line of text) across the internet. Although the 
+        numbers encoded by the Ten10b system MAY represent a point on a continuous 
+        curve (aka an <xref target="integral-wikipedia" format="none" sectionFormat="bare">
+        integral</xref> or simply <xref target="analog-wikipedia" format="none" sectionFormat="bare">
+        analog</xref>), the text itself is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare"> 
+        discrete system</xref>. In addition, it SHOULD be noted 
+        that since all <xref target="binary-number-systems-wikipedia" format="none" sectionFormat="bare">
+        binary number systems </xref>
+        are discrete, by proxy, all number systems built on top of them are by proxy 
+        <xref target="discrete-system-wikipedia"  format="none" sectionFormat="bare">
+        discrete number systems</xref>. This 
+        includes <xref target="ieee-754-wikipedia" format="none" sectionFormat="bare">
+        floating point numbers</xref> which MAY 
+        introduce rounding and extra decimal place issues when printed or converted to other <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
+        positional number systems</xref>.
+      </t>
+      <t>
+        Ten10b codifies five types of numbers which MAY be represented with 
+        <xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">
+        UTF-8 text</xref> as follows: <xref target="integers" format="none" sectionFormat="bare">Integers</xref>, 
+        <xref target="integer-fractions" format="none" sectionFormat="bare">
+        Integer Fractions</xref>, <xref target="integer-loops" format="none" sectionFormat="bare">
+        Integer Loops</xref>, <xref target="decimals" format="none" sectionFormat="bare">
+        Decimals</xref>, and <xref target="decimal-loops" format="none" sectionFormat="bare">
+        Decimal Loops (aka. Repeating Decimals) </xref>. 
+        Ten10b allows for numbers to be of any size, any number of characters. 
+        However, since Ten10b numbers MUST be parsable from a single line of text, 
+        <xref target="line-wrapping-wikipedia" format="none" sectionFormat="bare">
+        line wrapping</xref> SHOULD NOT be used 
+        with Ten10b. To improve human-readability, we suggest using 
+        <xref target="ten64" format="none" sectionFormat="bare">
+        Ten64 </xref> for numbers that do NOT fit on a single line. Finally, 
+        Ten10b users SHOULD use a 92-character number sequence character limiter.
+      </t>
     </abstract>
   </front>
   
@@ -31,61 +73,31 @@
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and 
         "OPTIONAL" in this document are to be interpreted as described in 
-        BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and 
+        BCP 14 <xref target="ietf-keywords-rfc-2119" format="none" sectionFormat="bare">
+        RFC2119</xref> <xref target="ietf-uppercase-rfc-8174" format="none" sectionFormat="bare">
+        RFC8174</xref> when, and 
         only when, they appear in all capitals, as shown here.</t>
         <t>This document aligns with the formal IETF standardization 
         procedures defined by the Internet Standards Process in BCP 9 
-        <xref target="RFC2026"/>.</t>
+        <xref target="ietf-standards-process-rfc-2026" format="none" sectionFormat="bare">
+        RFC2026</xref>.</t>
       </section>
     </section>
 
-    <section anchor="human-readable-verses-human-decipherable" 
-             title="Human-Readable Verses Human-Decipherable">
+    <section anchor="integers">
+      <name>Introduction</name>
     </section>
-
-    <section anchor="special-chars-intro">
-      <name>Special Characters Introduction</name>
+    <section anchor="integer-loops">
+      <name>Introduction</name>
     </section>
-    
-    <section anchor="special-chars">
-      <name>Special Characters and Sequence Details</name>
+    <section anchor="integer-fractions">
+      <name>Introduction</name>
     </section>
-
-    <section anchor="alphabet">
-      <name>The Ten64 Alphabet Mappings</name>
+    <section anchor="decimals">
+      <name>Introduction</name>
     </section>
-
-    <section anchor="use-cases" title="Use-Cases">
-    </section>
-    
-    <section anchor="binary" title="Binary">
-    </section>
-    
-    <section anchor="related-technologies" title="Related Technologies">
-    </section>
-
-    <section anchor="performance" title="Performance">
-    </section>
-
-    <section anchor="compatibility" title="Compatibility">
-    </section>
-
-    <section anchor="interpretation-conventions" 
-             title="Interpretation Conventions">
-    </section>
-
-    <section anchor="modern-western-numeral-system" 
-             title="Modern Western Numeral System">
-    </section>
-    
-    <section anchor="iana">
-      <name>IANA Considerations</name>
-    </section>
-    
-    <section anchor="commentary" title="Commentary">
-    </section>
-    
-    <section anchor="citations-and-workflow-comments" title="Citations and Workflow Comments">
+    <section anchor="decimal-loops">
+      <name>Introduction</name>
     </section>
   </middle>
 
@@ -116,6 +128,27 @@
         <format type="TXT" target="Section 4.1: Positional Number Systems"/>
       </reference>
 
+      <reference anchor="bigdecimal-mclaughlin" target="https://mikemcl.github.io/decimal.js/">
+        <front>
+          <title>decimal.js - An arbitrary-precision Decimal type for JavaScript</title>
+          <author initials="M." surname="Mclaughlin" fullname="Michael Mclaughlin">
+            <organization/>
+          </author>
+          <date/>
+        </front>
+      </reference>
+
+      <reference anchor="bigdecimal-java-oracle" target="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/math/BigDecimal.html">
+        <front>
+          <title>Class BigDecimal (Java SE 25 &amp; JDK 25)</title>
+          <author>
+            <organization>Oracle Corporation</organization>
+          </author>
+          <date year="2025" month="September"/>
+        </front>
+        <seriesInfo name="Java Platform, Standard Edition API Specification" value="Version 25"/>
+      </reference>
+
       <reference anchor="binary-number-systems-wikipedia" target="https://en.wikipedia.org/wiki/Binary_number">
         <front>
           <title>Binary number</title>
@@ -126,7 +159,6 @@
         </front>
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
-
 
       <reference anchor="compart" target="https://www.compart.com/en/unicode/U+0305">
         <front>
@@ -150,7 +182,7 @@
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
 
-      <reference anchor="decimal-conversion-c++" target="https://en.cppreference.com/w/cpp/types/numeric_limits/max_digits10">
+      <reference anchor="decimal-conversion-cpp" target="https://en.cppreference.com/w/cpp/types/numeric_limits/max_digits10">
         <front>
           <title>std::numeric_limits&lt;T&gt;::max_digits10</title>
           <author>
@@ -182,6 +214,18 @@
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
 
+      <reference anchor="ecmascript-2025" target="https://tc39.es/ecma262/">
+        <front>
+          <title>ECMAScript 2025 Language Specification</title>
+          <author>
+            <organization>Ecma International</organization>
+          </author>
+          <date year="2025" month="June"/>
+        </front>
+        <seriesInfo name="Standard" value="ECMA-262"/>
+        <seriesInfo name="Edition" value="16th"/>
+      </reference>
+
       <reference anchor="fractions-wikipedia" target="https://en.wikipedia.org/wiki/Fraction">
         <front>
           <title>Fraction</title>
@@ -202,6 +246,45 @@
           <date year="2026" month="April"/>
         </front>
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="ietf-keywords-rfc-2119" target="https://www.rfc-editor.org/info/rfc2119">
+        <front>
+          <title>Key words for use in RFCs to Indicate Requirement Levels</title>
+          <author initials="S." surname="Bradner" fullname="S. Bradner">
+            <organization/>
+          </author>
+          <date year="1997" month="March"/>
+        </front>
+        <seriesInfo name="BCP" value="14"/>
+        <seriesInfo name="RFC" value="2119"/>
+        <seriesInfo name="DOI" value="10.17487/RFC2119"/>
+      </reference>
+
+      <reference anchor="ietf-standards-process-rfc-2026" target="https://www.rfc-editor.org/info/rfc2026">
+        <front>
+          <title>The Internet Standards Process -- Revision 3</title>
+          <author initials="S." surname="Bradner" fullname="S. Bradner">
+            <organization/>
+          </author>
+          <date year="1996" month="October"/>
+        </front>
+        <seriesInfo name="BCP" value="9"/>
+        <seriesInfo name="RFC" value="2026"/>
+        <seriesInfo name="DOI" value="10.17487/RFC2026"/>
+      </reference>
+
+      <reference anchor="ietf-uppercase-rfc-8174" target="https://www.rfc-editor.org/info/rfc8174">
+        <front>
+          <title>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
+          <author initials="B." surname="Leiba" fullname="B. Leiba">
+            <organization/>
+          </author>
+          <date year="2017" month="May"/>
+        </front>
+        <seriesInfo name="BCP" value="14"/>
+        <seriesInfo name="RFC" value="8174"/>
+        <seriesInfo name="DOI" value="10.17487/RFC8174"/>
       </reference>
 
       <reference anchor="integers-wikipedia" target="https://en.wikipedia.org/wiki/Integer">
@@ -241,7 +324,7 @@
         <seriesInfo name="Publisher" value="Oracle America, Inc."/>
       </reference>
 
-      <reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259">
+      <reference anchor="json-rfc-8259" target="https://www.rfc-editor.org/info/rfc8259">
         <front>
           <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
           <author initials="T." surname="Bray" fullname="T. Bray" role="editor">

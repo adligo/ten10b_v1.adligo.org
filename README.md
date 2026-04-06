@@ -2,9 +2,24 @@
 
 # Abstract
 
-Text Encoded Base 10 Numbers (Ten10b), are a [positional number system](#positional-number-systems-wikipedia) designed to be encoded in [UTF-8](#utf-8-rfc-3629) text, based on the system you likely learned in elementary school and used throughout your mathematics courses.  It is a [discrete system](#discrete-system-wikipedia) designed to provide the maximum clarity for the serialization of numbers (which fit on a single line of text) across the internet.  Although the numbers encoded by the Ten10b system MAY represent a point on a continuous curve (aka an [integral](#integral-wikipedia) or simply [analog](#analog-wikipedia)), the text itself is a [discreet system](#discrete-system-wikipedia).  In addition, it SHOULD be noted that since all [binary number systems](#binary-number-systems-wikipedia) are discrete, by proxy all number systems built on top of them are by proxy [discrete number systems](#discrete-system-wikipedia).  This includes [floating point numbers](#ieee-754) which MAY introduce rounding issues when printed or converted to other [positional number systems](#positional-number-systems-wikipedia).
+Ten10b is a [positional number system](#positional-number-systems-wikipedia) designed to be encoded in [UTF-8](#utf-8-rfc-3629) text. Ten10b is based on the system you likely learned in elementary school and used throughout your mathematics courses.  However, it is a [discrete system](#discrete-system-wikipedia) designed to provide the maximum clarity for the serialization of numbers (which fit on a single line of text) across the internet.  Although the numbers encoded by the Ten10b system MAY represent a point on a continuous curve (aka an [integral](#integral-wikipedia) or simply [analog](#analog-wikipedia)), the text itself is a [discreet system](#discrete-system-wikipedia).  In addition, it SHOULD be noted that since all [binary number systems](#binary-number-systems-wikipedia) are discrete, by proxy, all number systems built on top of them are by proxy [discrete number systems](#discrete-system-wikipedia).  This includes [floating point numbers](#ieee-754) which MAY introduce rounding and extra decimal place issues when printed or converted to other [positional number systems](#positional-number-systems-wikipedia).
 
-Ten10b codifies five types of numbers which MAY be represented with [UTF-8 text](#utf-8-rfc-3629) as follows [Integers](#integers), [Integer Fractions](#integer-fractions), [Integer Loops](#integer-loops), [Decimals](#decimals), and [Decimal Loops (aka. Repeating Decimals)](#decimal-loops).  Ten10b allows for numbers to be of any size, any number of characters.  However, since Ten10b numbers MUST be parsable from a single line of text, [line wrapping](#line-wrapping-wikipedia) SHOULD NOT be used with Ten10b.  To improve human-readability, we suggest using [Ten64](#ten64) for numbers that do NOT fit on a single line.  Finally, Ten10b users SHOULD use a 92 character per line and character limiter.
+Ten10b codifies five types of numbers which MAY be represented with [UTF-8 text](#utf-8-rfc-3629) as follows [Integers](#integers), [Integer Fractions](#integer-fractions), [Integer Loops](#integer-loops), [Decimals](#decimals), and [Decimal Loops (aka. Repeating Decimals)](#decimal-loops).  Ten10b allows for numbers to be of any size, any number of characters.  However, since Ten10b numbers MUST be parsable from a single line of text, [line wrapping](#line-wrapping-wikipedia) SHOULD NOT be used with Ten10b.  To improve human-readability, we suggest using [Ten64](#ten64) for numbers that do NOT fit on a single line.  Finally, Ten10b users SHOULD use a 92-character number sequence character limiter.
+
+# Internet Draft
+
+- [id.xml](./internet-drafts/id.xml)
+- [https://author-tools.ietf.org/](https://author-tools.ietf.org/)
+
+## Discussion Channel
+
+- [https://discord.gg/xmrepygpzr](https://discord.gg/xmrepygpzr)
+
+# Implementations
+
+This Github project will contain the Java implementation.  A Typescript implementation will live at;
+
+- [https://github.com/adligo/ten10b_v1.ts.adligo.org](https://github.com/adligo/ten10b_v1.ts.adligo.org)
 
 # Introduction
 
@@ -104,19 +119,20 @@ Ten10b SHOULD use commas at the time of encoding to improve human-readability.  
 
 ##### The Three-Digit Comma Sequence Convention
 
-This convention is simply to place a comma after every three additional numeric digits away from the decimal point.  This convention is commonly used in large integers for currency, for example.  However, this convention should be extended to decimal places when using Ten10b.
+This convention is simply to place a comma after every three additional numeric digits away from the decimal point.  This convention is commonly used in large integers for currency, for example.  However, this convention SHOULD be extended to decimal places when using Ten10b.
 
 i.e.
 
 ```
 123,456,789.123,456,789,012
 ```
-##### The Ten-5-1 Comma Sequence Convention
+##### The 5,5, 5-1 Comma Sequence Convention
 
 This convention is for larger numbers where it would help to identify every 25 decimal places.  Similar to the three-digit convention, we start at the decimal place and then move away. Adding commas in the following sequence;
 
 ```
-after ten digits
+after five digits
+after five digits
 after five digits
 after four digits
 after three digits
@@ -127,12 +143,16 @@ after one digit
 i.e.
 
 ```
-7654,09876,1235467890.1234567890,09876,5432,321,21,1,1234567890,09
+7654,09876,12354,67890.12345,67890,09876,5432,321,21,1,12345,67890,09
 ```
+
+##### Comma Scheme Extensions
+
+Authors and readers and writers of Ten10B SHOULD feel free to add their own scheme extensions and inventions.
 
 # Implementation Requirements
 
-Ten10b implementations MUST guarantee exact equality of number being encoded and transmitted over the internet!
+Ten10b implementations MUST guarantee exact equality of number being encoded and transmitted over the internet!  This guarantee MUST include both the text representation and internal binary representation of the numbers.
 
 # Implementation Recommendations
 
@@ -143,7 +163,7 @@ Because of the [implementation requirements](#implementation-requirements) we re
 
 ### TNumber
 
-This is the abstract class with static factory methods named <i><b>from* (pronounced from star)</b></i>.  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
+This is the abstract class with static factory methods named <i><b>from* (pronounced 'from star')</b></i>.  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
 
 i.e. [Java](#java) Psudocode
 
@@ -165,7 +185,7 @@ number n = t.toNumber(); // IEEE 754 per the ECMA Script standard
 
 ### TInt
 
-This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It SHOULD provide various methods <i><b>to* (pronounced to star)</b></i> which convert the TInt into the local language's class or type system.
+This is the representation of [Ten10b Integers](#integers).  It SHOULD extend T number, when extension is available.  It SHOULD provide various methods <i><b>to* (pronounced 'to star')</b></i> which convert the TInt into the local language's class or type system.
 
 It MUST return false from the <i><b>isDecimalOrFraction</b></i> method.  It MUST return false to the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.
 
@@ -215,9 +235,13 @@ Extensible (eXtensible) Classification System is a downstream client and will be
 
 ### XML
 
-[XML](#xml-wc3) MAY be based on UTF-8, when it is Ten10b compatible with XML strings.  [XML](#xml-wc3) with non UTF-8 character encodings is NOT compatible with Ten10b.
+[XML](#xml-wc3) MAY be based on [UTF-8](#utf-8-rfc-3629), when it is Ten10b compatible with XML strings.  [XML](#xml-wc3) with non [UTF-8](#utf-8-rfc-3629) character encodings is NOT compatible with Ten10b.
 
 # Commentary
+
+The motivation for this internet draft is largely a vague gap that exists between the [JSON RFC 8259](#json-rfc-8259) and the [ECMAScript specification](#ecma).  Instead of providing clarity (which is the purpose of RFCs), we feel the [JSON RFC 8259](#json-rfc-8259), has left significant ambiguity.  Should currency be transmitted and serialized as JSON strings using [Java style BigDecimals]() or [BigDecimal clones], which are NOT any kind of IETF standard?  Or should the various parsers and serializers be fixed and standardized to use JSON numbers?
+
+For more details on these ambiguities related to [JSON](#json-rfc-8259) ;
 
 [@see Ten64 Commentary](#ten64-commentary)
 
@@ -227,10 +251,15 @@ S Morgan:
 
 In an attempt to improve human audibility, I added a small b at the end of the acronym.  It seemed to have a nice ring to it, like two 21B.
 
-## Citation Commentary
+## Citations and Workflow Comments
 
+Finally, note that most of the Github style Markdown to RFC style XML conversion, and citations were generated by [Gemini](#google-gemini).  Also, [Gemini Deep Research](#google-gemini-deep-research), found [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard), and other content that I didn't track.  Finally, note I dictated most of this paper using various voice-to-text AI software, which has given much of it a strangely verbal style. Feel free to reach out if you would like to correct, modify or add anything to this paper.
+
+I often used the following prompt;
+
+```
 Find or create Academic/Footnote Markdown style and RFC XML style citations to
-
+```
 
 # Citations
 
@@ -244,6 +273,17 @@ Computers must frequently translate between binary data and human-readable base-
 
 Knuth, Donald E. *The Art of Computer Programming, Volume 2: Seminumerical Algorithms*. 3rd ed., Addison-Wesley, 1997, pp. 195. (Section 4.1: Positional Number Systems).
 
+##### BigDecimal Mclaughlin
+
+Because standard ECMAScript numbers are double-precision floats, JavaScript implementations should utilize an arbitrary-precision library such as `decimal.js` to ensure accurate base-10 calculations.
+
+ Mclaughlin, Michael. "decimal.js - An arbitrary-precision Decimal type for JavaScript." *GitHub Pages*, https://mikemcl.github.io/decimal.js/. Accessed 6 Apr. 2026.
+
+##### BigDecimal Java Oracle
+
+For exact decimal arithmetic, such as financial calculations, the application must utilize a specialized data type rather than a standard floating-point number.
+
+Oracle. "Class BigDecimal." *Java Platform, Standard Edition & Java Development Kit Version 25 API Specification*, Oracle Corporation, Sept. 2025. https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/math/BigDecimal.html. Accessed 6 Apr. 2026.
 
 ##### Binary Number Systems Wikipedia
 
@@ -266,6 +306,12 @@ Wikipedia contributors. "Decimal." *Wikipedia, The Free Encyclopedia*. Accessed 
 ##### Discrete System Wikipedia
 
 Wikipedia contributors. "Discrete system." *Wikipedia, The Free Encyclopedia*. Accessed April 5, 2026. <https://en.wikipedia.org/wiki/Discrete_system>.
+
+##### ECMAScript 2025
+
+The engine parses the code according to the rules defined in the ECMAScript specification.[^1]
+
+"ECMAScript® 2025 Language Specification." *Ecma International*, Standard ECMA-262, 16th ed., June 2025. https://tc39.es/ecma262/. Accessed 6 Apr. 2026.
 
 ##### Endianness Wikipedia
 
