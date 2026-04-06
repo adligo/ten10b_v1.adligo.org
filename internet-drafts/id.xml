@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rfc version="3" ipr="trust200902" docName="draft-morgan-ten64-00" 
+<rfc version="3" ipr="trust200902" docName="draft-morgan-ten64-00"
      submissionType="IETF" category="info" xml:lang="en">
   <front>
     <title abbrev="Ten10b">Text Encoded Base Ten Numbers Version 1 (Ten10b_v1)</title>
-    
+
     <author initials="S." surname="Morgan" fullname="Scott Morgan">
       <organization>Adligo Inc.</organization>
       <address>
@@ -16,88 +16,522 @@
 
     <area>Applications and Real-Time</area>
     <workgroup>Internet Engineering Task Force</workgroup>
-    
+
     <abstract>
       <t>
-        Ten10b, is a 
+        Ten10b, is a
         <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
-        positional number system</xref> designed to be encoded 
+        positional number system</xref> designed to be encoded
         in <xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">UTF-8</xref> text.
-        Ten10b is based on the system 
-        you likely learned in elementary school and used throughout your mathematics 
-        courses.  However, it is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare"> 
-        discrete system</xref> designed to provide the maximum clarity for the serialization of numbers 
-        (which fit on a single line of text) across the internet. Although the 
-        numbers encoded by the Ten10b system MAY represent a point on a continuous 
+        Ten10b is based on the system
+        you likely learned in elementary school and used throughout your mathematics
+        courses.  However, it is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare">
+        discrete system</xref> designed to provide the maximum clarity for the serialization of numbers
+        (which fit on a single line of text) across the internet. Although the
+        numbers encoded by the Ten10b system MAY represent a point on a continuous
         curve (aka an <xref target="integral-wikipedia" format="none" sectionFormat="bare">
         integral</xref> or simply <xref target="analog-wikipedia" format="none" sectionFormat="bare">
-        analog</xref>), the text itself is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare"> 
-        discrete system</xref>. In addition, it SHOULD be noted 
+        analog</xref>), the text itself is a <xref target="discrete-system-wikipedia" format="none" sectionFormat="bare">
+        discrete system</xref>. In addition, it SHOULD be noted
         that since all <xref target="binary-number-systems-wikipedia" format="none" sectionFormat="bare">
         binary number systems </xref>
-        are discrete, by proxy, all number systems built on top of them are by proxy 
+        are discrete, by proxy, all number systems built on top of them are by proxy
         <xref target="discrete-system-wikipedia"  format="none" sectionFormat="bare">
-        discrete number systems</xref>. This 
+        discrete number systems</xref>. This
         includes <xref target="ieee-754-wikipedia" format="none" sectionFormat="bare">
-        floating point numbers</xref> which MAY 
+        floating point numbers</xref> which MAY
         introduce rounding and extra decimal place issues when printed or converted to other <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
         positional number systems</xref>.
       </t>
       <t>
-        Ten10b codifies five types of numbers which MAY be represented with 
+        Ten10b codifies five types of numbers which MAY be represented with
         <xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">
-        UTF-8 text</xref> as follows: <xref target="integers" format="none" sectionFormat="bare">Integers</xref>, 
+        UTF-8 text</xref> as follows: <xref target="integers" format="none" sectionFormat="bare">Integers</xref>,
         <xref target="integer-fractions" format="none" sectionFormat="bare">
         Integer Fractions</xref>, <xref target="integer-loops" format="none" sectionFormat="bare">
         Integer Loops</xref>, <xref target="decimals" format="none" sectionFormat="bare">
         Decimals</xref>, and <xref target="decimal-loops" format="none" sectionFormat="bare">
-        Decimal Loops (aka. Repeating Decimals) </xref>. 
-        Ten10b allows for numbers to be of any size, any number of characters. 
-        However, since Ten10b numbers MUST be parsable from a single line of text, 
+        Decimal Loops (aka. Repeating Decimals) </xref>.
+        Ten10b allows for numbers to be of any size, any number of characters.
+        However, since Ten10b numbers MUST be parsable from a single line of text,
         <xref target="line-wrapping-wikipedia" format="none" sectionFormat="bare">
-        line wrapping</xref> SHOULD NOT be used 
-        with Ten10b. To improve human-readability, we suggest using 
+        line wrapping</xref> SHOULD NOT be used
+        with Ten10b. To improve human-readability, we suggest using
         <xref target="ten64" format="none" sectionFormat="bare">
-        Ten64 </xref> for numbers that do NOT fit on a single line. Finally, 
+        Ten64 </xref> for numbers that do NOT fit on a single line. Finally,
         Ten10b users SHOULD use a 92-character number sequence character limiter.
       </t>
     </abstract>
   </front>
-  
+
   <middle>
     <section anchor="intro">
       <name>Introduction</name>
-      
+
       <section anchor="requirements">
         <name>Requirements Language</name>
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
-        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and 
-        "OPTIONAL" in this document are to be interpreted as described in 
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described in
         BCP 14 <xref target="ietf-keywords-rfc-2119" format="none" sectionFormat="bare">
         RFC2119</xref> <xref target="ietf-uppercase-rfc-8174" format="none" sectionFormat="bare">
-        RFC8174</xref> when, and 
+        RFC8174</xref> when, and
         only when, they appear in all capitals, as shown here.</t>
-        <t>This document aligns with the formal IETF standardization 
-        procedures defined by the Internet Standards Process in BCP 9 
+        <t>This document aligns with the formal IETF standardization
+        procedures defined by the Internet Standards Process in BCP 9
         <xref target="ietf-standards-process-rfc-2026" format="none" sectionFormat="bare">
         RFC2026</xref>.</t>
       </section>
     </section>
 
-    <section anchor="integers">
+    <section anchor="introduction">
       <name>Introduction</name>
+
+      <section anchor="natural-number-alphabet">
+        <name>Natural Number Alphabet</name>
+        <table>
+          <thead>
+            <tr>
+              <th><xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">UTF-8 Character</xref></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td></tr>
+            <tr><td>1</td></tr>
+            <tr><td>2</td></tr>
+            <tr><td>3</td></tr>
+            <tr><td>4</td></tr>
+            <tr><td>5</td></tr>
+            <tr><td>6</td></tr>
+            <tr><td>7</td></tr>
+            <tr><td>8</td></tr>
+            <tr><td>9</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section anchor="ten10b-alphabet">
+        <name>Ten10b Alphabet</name>
+        <table>
+          <thead>
+            <tr>
+              <th><xref target="utf-8-rfc-3629" format="none" sectionFormat="bare">UTF-8 Character</xref></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td></tr>
+            <tr><td>1</td></tr>
+            <tr><td>2</td></tr>
+            <tr><td>3</td></tr>
+            <tr><td>4</td></tr>
+            <tr><td>5</td></tr>
+            <tr><td>6</td></tr>
+            <tr><td>7</td></tr>
+            <tr><td>8</td></tr>
+            <tr><td>9</td></tr>
+            <tr><td>-</td></tr>
+            <tr><td>+</td></tr>
+            <tr><td>.</td></tr>
+            <tr><td>,</td></tr>
+            <tr><td>/</td></tr>
+            <tr><td><xref target="compart" format="none" sectionFormat="bare">u0305 / Compart (aka. Overline [i.e. &#x0305;1&#x0305;2&#x0305;3])</xref></td></tr>
+          </tbody>
+        </table>
+      </section>
     </section>
-    <section anchor="integer-loops">
-      <name>Introduction</name>
+
+    <section anchor="the-five-number-types">
+      <name>The Five Number Types</name>
+      <t>
+        Any of the five number types MAY have a sign prefix which is OPTIONAL. The sign prefix MAY be either positive '+' or negative '-'. When the sign prefix is present, it MUST be the first character of the Ten10b character sequence.
+      </t>
+
+      <section anchor="integers">
+        <name>Integers</name>
+        <t>
+          Integers are built with the <xref target="modern-western-numeral-system" format="none" sectionFormat="bare">Modern Western Numeral System</xref> and are well-known and have many identical definitions, <xref target="integers-wikipedia" format="none" sectionFormat="bare">i.e. Wikipedia</xref>. Integers are arranged in descending order (<xref target="endianness-wikipedia" format="none" sectionFormat="bare">aka. little ending</xref>). Integers MUST consist of only the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Numbers</xref>. Integers MUST NOT have one or more zeros on their left side. Integers MAY contain commas between characters in the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Number Alphabet</xref>.
+        </t>
+        <t><strong>Example A</strong></t>
+        <sourcecode type="text">
+1,234
+        </sourcecode>
+      </section>
+
+      <section anchor="integer-fractions">
+        <name>Integer Fractions</name>
+        <t>
+          Integer Fractions consist of a single <xref target="fractions-wikipedia" format="none" sectionFormat="bare">numerator</xref> and <xref target="fractions-wikipedia" format="none" sectionFormat="bare">denominator</xref> separated by the fracton symbol '/'. Both the <xref target="fractions-wikipedia" format="none" sectionFormat="bare">numerator</xref> and <xref target="fractions-wikipedia" format="none" sectionFormat="bare">denominator</xref> MUST consist of <xref target="integers" format="none" sectionFormat="bare">Ten10b Integers</xref>. Integer Fractions MUST contain one and only one fracton symbol '/'. The fracton symbol MUST NOT be the first or last character in a Integer Fraction character sequence.
+        </t>
+        <t><strong>Example B</strong></t>
+        <sourcecode type="text">
+1,234/2,345
+        </sourcecode>
+      </section>
+
+      <section anchor="integer-loops">
+        <name>Integer Loops</name>
+        <t>
+          Integer Loops consist of one or more characters from the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Number Alphabet</xref>. All characters in an Integer Loop MUST have a <xref target="compart" format="none" sectionFormat="bare">Compart (aka. Overline)</xref> (Note this includes commas, in addition to the characters from the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Numbers Alphabet</xref>). Integer Loops MAY have one or more zeros at the left. Integer Loops MAY contain commas between characters in the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Number Alphabet</xref>.
+        </t>
+        <t><strong>Example C</strong></t>
+        <t>&#x0305;0&#x0305;1&#x0305;2&#x0305;,&#x0305;3</t>
+      </section>
+
+      <section anchor="decimals">
+        <name>Decimals</name>
+        <t>
+          Decimals consist of one or more characters from the <xref target="natural-number-alphabet" format="none" sectionFormat="bare">Natural Number Alphabet</xref> separated by a <xref target="decimals" format="none" sectionFormat="bare">decimal point</xref>. Decimals MUST have one and only one <xref target="decimals-wikipedia" format="none" sectionFormat="bare">decimal point</xref>. Decimals MUST NOT contain a fraction symbol '/'. The text to the left side of the decimal point is called the integer part and MUST conform to the <xref target="integers" format="none" sectionFormat="bare">Integer Ten10b rules</xref>. The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros (aka. zeros at the right side of the Ten10b character sequence). The purpose of the trailing zeros is to communicate precision.
+        </t>
+        <t><strong>Example D</strong></t>
+        <sourcecode type="text">
+123.456,678,000
+        </sourcecode>
+      </section>
+
+      <section anchor="decimal-loops">
+        <name>Decimal Loops</name>
+        <t>
+          Decimal Loops consist of a <xref target="decimals" format="none" sectionFormat="bare">Ten10b style Decimal</xref> followed by a <xref target="integer-loops" format="none" sectionFormat="bare">Ten10b style Integer Loop</xref>. Like all Ten10b number sequences, Decimal Loops MUST NOT contain any whitespace characters. Note, although not a hard limit for <xref target="ieee-754-wikipedia" format="none" sectionFormat="bare">single precision and double precision floating-point numbers</xref>, generally there is a respective <xref target="decimal-conversion-cpp" format="none" sectionFormat="bare">9 and 17 rule provided by C++</xref>. However, since floating-point precision MAY increase or vary over time, modern standards SHOULD be sought for conversion algorithms.
+        </t>
+        <t><strong>Example F</strong></t>
+        <t>123,456.123,34&#x0305;2&#x0305;,&#x0305;3</t>
+      </section>
     </section>
-    <section anchor="integer-fractions">
-      <name>Introduction</name>
+
+    <section anchor="commas-and-comma-scheme-conventions">
+      <name>Commas and Comma Scheme Conventions</name>
+      <t>
+        Ten10b SHOULD use commas at the time of encoding to improve human-readability.
+        However, the use of commas is OPTIONAL. Also note, parsers/readers MAY simply
+        ignore commas. Commas MUST NOT be the first or last character in a Ten10b
+        character sequence.
+      </t>
+
+      <section anchor="the-three-digit-comma-sequence-convention">
+        <name>The Three-Digit Comma Sequence Convention</name>
+        <t>
+          This convention is simply to place a comma after every three additional numeric
+          digits away from the decimal point. This convention is commonly used in large
+          integers for currency, for example. However, this convention SHOULD be extended
+          to decimal places when using Ten10b.
+        </t>
+        <t>i.e.</t>
+        <sourcecode type="text">
+123,456,789.123,456,789,012
+        </sourcecode>
+      </section>
+
+      <section anchor="the-5-5-5-1-comma-sequence-convention">
+        <name>The 5,5, 5-1 Comma Sequence Convention</name>
+        <t>
+          This convention is for larger numbers where it would help to identify every 25 decimal places. Similar to the three-digit convention, we start at the decimal place and then move away. Adding commas in the following sequence;
+        </t>
+        <sourcecode type="text">
+after five digits
+after five digits
+after five digits
+after four digits
+after three digits
+after two digits
+after one digit
+        </sourcecode>
+        <t>i.e.</t>
+        <sourcecode type="text">
+7654,09876,12354,67890.12345,67890,09876,5432,321,21,1,12345,67890,09
+        </sourcecode>
+      </section>
+
+      <section anchor="comma-scheme-extensions">
+        <name>Comma Scheme Extensions</name>
+        <t>
+          Authors and readers and writers of Ten10B SHOULD feel free to add their own scheme extensions and inventions.
+        </t>
+      </section>
     </section>
-    <section anchor="decimals">
-      <name>Introduction</name>
+
+    <section anchor="implementation-requirements">
+      <name>Implementation Requirements</name>
+      <t>
+        Ten10b implementations MUST guarantee the exact equality of numbers being
+        encoded and transmitted over the internet! This guarantee MUST include
+        both the text representation and internal binary representation of the
+        numbers.
+      </t>
     </section>
-    <section anchor="decimal-loops">
-      <name>Introduction</name>
+
+    <section anchor="implementation-recommendations">
+      <name>Implementation Recommendations</name>
+      <t>
+        Because of the <xref target="implementation-requirements" format="none"
+        sectionFormat="bare">implementation requirements</xref> we recommend
+        creating a one-to-one type system in the languages of your choice to
+        convey this information. Essentially, these recommended classes would
+        act as an intermediary between the language's type system and the
+        readers and writers of Ten10b. In addition, noting the capital T at
+        the start of the class names is short for Ten10b, we recommend the
+        following class names.
+      </t>
+  
+      <section anchor="class-diagram">
+        <name>Java Class Diagram</name>
+        <t>
+          The following diagram illustrates the recommended class structure for
+          implementing the Ten10b type system.
+        </t>
+        <figure anchor="fig-class-diagram">
+          <name>Ten10b Java Class Diagram</name>
+          <artwork>
+  <![CDATA[
+                             +--------------------------------------+
+                             |               TNumber                |
+                             +--------------------------------------+
+                             | + static from(String in): TNumber    |
+                             | + static from(BigInteger in): TNumber|
+                             | + static from(BigDecimal in): TNumber|
+                             | + static from(double in): TNumber    |
+                             | + static from(float in): TNumber     |
+                             | + static from(int in): TNumber       |
+        +------------------->| + static from(long in): TNumber      |
+        |                    +--------------------------------------+
+        | Extends            | + isBig(): boolean                   |
+  +-----------------------+  | + isDecimal(): boolean               |   +-----------------------+
+  |       TFraction       |  | + isDecimalOrFraction(): boolean     |   |   <<enumeration>>     |
+  +-----------------------+  | + isFraction(): boolean              |   |     TNumberType       |
+  | - numerator: TInt     |  | + getType(): TNumberType             |   +-----------------------+
+  | - denominator: TInt   |  | + toBigDecimal(): BigDecimal         |   | TInt                  |
+  +-----------------------+  | + toDouble(): double                 |   | TIntLoop              |
+  | + getNumerator(): TInt|  | + toFloat(): float                   |   | TFraction             |
+  | + getDenominator()    |  | + toString(): string                 |   | TDecimal              |
+  +-----------------------+  | + toString(CommaScheme...): string   |   | TDecimalLoop          |
+                             +--------------------------------------+   +-----------------------+
+                                    ^   ^   ^   ^        ^
+                                    |   |   |   |        | Extends
+            +-----------------------+   |   |   |        +-----------------------+
+            | Extends                   |   |   |                                |
+  +-----------------------+             |   |   |                       +-----------------------+
+  |         TInt          |-------------+   |   |                       |       TDecimal        |
+  +-----------------------+                 |   |                       |                       |
+  | - digits: BigInteger  |         Extends |   |                       +-----------------------+
+  +-----------------------+                 |   |                       | - digits: BigInteger  |
+                                            |   |                       | - decimalPlace: BigInt|
+                                            |   |                       +-----------------------+
+  +------------------------------------+    |   | Extends
+  |             TIntLoop               |----+   |
+  +------------------------------------+        |       +------------------------------------+
+  | - numbers: string                  |        +-------|            TDecimalLoop            |
+  +------------------------------------+                +------------------------------------+
+  | + newGenerator(...): Supplier<char>|                | - decimal: TDecimal                |
+  | + toString(...): string            |                | - numbers: string                  |
+  +------------------------------------+                +------------------------------------+
+                                                        | + newGenerator(...): Supplier<char>|
+                                                        | + toString(...): string            |
+                                                        +------------------------------------+
+  ]]>
+          </artwork>
+        </figure>
+      </section>
+  
+      <section anchor="tnumber">
+        <name>TNumber</name>
+        <t>
+          This is the abstract class with static factory methods named 
+          <em><strong>from* (pronounced 'from star')</strong></em>. The 
+          <em><strong>from*</strong></em> methods MAY be overloaded or MAY have 
+          extension methods depending on if your language allows method overloading.
+        </t>
+        <t>
+          i.e. <xref target="java-language-specification" format="none" sectionFormat="bare">Java</xref> 
+          Psudocode
+        </t>
+        <sourcecode type="java">
+  String s = TNumber.from((float) 10.19).toString();
+  TNumber t = TNumber.from("10.19");
+  println(t.getType()); // Prints TDecimal
+  float f = ((TDecimal) t).toFloat();
+  BigDecimal b = ((TDecimal) t).toBigDecimal();
+        </sourcecode>
+        <t>
+          i.e. <xref target="typescript" format="none" sectionFormat="bare">Typescript 
+          / ECMA Script</xref> Psudocode
+        </t>
+        <sourcecode type="typescript">
+  let s : string = TNumber.fromNumber(10.19).toString();
+  let t : TDecimal = TNumber.fromBigDecimal(new BigDecimal("10.19"));
+  number n = t.toNumber(); // IEEE 754 per the ECMA Script standard
+        </sourcecode>
+      </section>
+  
+      <section anchor="tint">
+        <name>TInt</name>
+        <t>
+          This is the representation of <xref target="integers" format="none" 
+          sectionFormat="bare">Ten10b Integers</xref>. It SHOULD extend T number, 
+          when extension is available. It SHOULD provide various methods 
+          <em><strong>to* (pronounced 'to star')</strong></em> which convert the 
+          TInt into the local language's class or type system.
+        </t>
+        <t>
+          It MUST return false from the <em><strong>isDecimalOrFraction</strong></em> 
+          method. It MUST return false to the <em><strong>isDecimal</strong></em> 
+          method. It MUST return false from the <em><strong>isFraction</strong></em> 
+          method.
+        </t>
+        <t>
+          It MUST return false from the <em><strong>isLoop</strong></em> method. 
+          It MAY provide a true or false answer to the <em><strong>isBig</strong></em> 
+          method. When the <em><strong>isBig</strong></em> method returns false, it 
+          MUST throw an exception or error when the <em><strong>toBigInt</strong></em> 
+          is called.
+        </t>
+      </section>
+  
+      <section anchor="tfraction">
+        <name>TFraction</name>
+        <t>
+          TFraction is the representation of a <xref target="integer-fractions" 
+          format="none" sectionFormat="bare">Ten10b Integer Fraction</xref>. It 
+          MUST return a TInt result from the <em><strong>getNumerator</strong></em> 
+          and <em><strong>getDenominator</strong></em> methods. It MUST return true 
+          if either the numerator or denominator returns true for the 
+          <em><strong>isBig</strong></em> method.
+        </t>
+        <t>
+          It MUST return true from the isDecimalOrFraction method. It MUST return 
+          false from the <em><strong>isDecimal</strong></em> method. It MUST return 
+          true from the <em><strong>isFraction</strong></em> method. It MUST return 
+          false from the <em><strong>isLoop</strong></em> method.
+        </t>
+      </section>
+  
+      <section anchor="tintloop">
+        <name>TIntLoop</name>
+        <t>
+          TFraction is the representation of a <xref target="integer-fractions" 
+          format="none" sectionFormat="bare">Ten10b Integer Loop</xref>.
+          It MUST return the next digit when the <em><strong>next</strong></em> 
+          method is called.
+        </t>
+        <t>
+          It MUST return false from the isDecimalOrFraction method. It MUST return 
+          false from the <em><strong>isDecimal</strong></em> method. It MUST return 
+          true from the <em><strong>isFraction</strong></em> method. It MUST return 
+          true from the <em><strong>isLoop</strong></em> method.
+        </t>
+      </section>
+  
+      <section anchor="tdecimal">
+        <name>TDecimal</name>
+        <t>
+          TFraction is the representation of a <xref target="decimals" format="none" 
+          sectionFormat="bare">Ten10b Decimal</xref>. It MAY return either true or 
+          false from the <em><strong>isBig</strong></em> method, and SHOULD base 
+          this decision around the semantics of the libraries in the language it 
+          is implemented in.
+        </t>
+        <t>
+          TDecimals MUST be implemented using a BigInteger type (i.e. 
+          <xref target="ecma-script" format="none" sectionFormat="bare">BigInt</xref>, 
+          <xref target="java-language-specification" format="none" sectionFormat="bare"
+          >BigInteger</xref>) for the numeric part (integer and decimal parts), 
+          which conforms to <xref target="math-international-standard" format="none" 
+          sectionFormat="bare">ISO/IEC 10967 integer datatype section 5.1 / 
+          International Math Standard.</xref> TDecimals MUST also be implemented 
+          using a 2nd BigInteger type (i.e. <xref target="ecma-script" format="none" 
+          sectionFormat="bare">BigInt</xref>, <xref target="java-language-specification" 
+          format="none" sectionFormat="bare">BigInteger</xref>) to track the 
+          number of <xref target="base-10" format="none" sectionFormat="bare"
+          >(base/radix 10) decimal places</xref>, which conforms to 
+          <xref target="math-international-standard" format="none" sectionFormat="bare"
+          >ISO/IEC 10967 integer datatype section 5.1 / International Math 
+          Standard.</xref>
+        </t>
+        <t>
+          It MUST return true from the <em><strong>isDecimalOrFraction</strong></em> 
+          method. It MUST return true from the <em><strong>isDecimal</strong></em> 
+          method. It MUST return false from the <em><strong>isFraction</strong></em> 
+          method. It MUST return false from the <em><strong>isLoop</strong></em> 
+          method.
+        </t>
+      </section>
+  
+      <section anchor="tdecimalloop">
+        <name>TDecimalLoop</name>
+        <t>
+          TFraction is the representation of a <xref target="decimal-loops" 
+          format="none" sectionFormat="bare">Ten10b Decimal Loops</xref>.
+          The <em><strong>to* (pronounced to star)</strong></em> methods will have 
+          implementation algorithms based on the language implementation details.
+        </t>
+        <t>
+          It MUST return true from the <em><strong>isDecimalOrFraction</strong></em> 
+          method. It MUST return true from the <em><strong>isDecimal</strong></em> 
+          method. It MUST return false from the <em><strong>isFraction</strong></em> 
+          method. It MUST return true from the <em><strong>isLoop</strong></em> 
+          method.
+        </t>
+      </section>
+    </section>
+
+    <section anchor="commentary">
+      <name>Commentary</name>
+      <t>
+        The motivation for this internet draft is largely a vague gap that 
+        exists between the <xref target="json-rfc-8259" format="none" 
+        sectionFormat="bare">JSON RFC 8259</xref> and the <xref target="ecmascript-2025" 
+        format="none" sectionFormat="bare">ECMAScript specification</xref>. 
+        Instead of providing clarity (which is the purpose of RFCs), we feel 
+        the <xref target="json-rfc-8259" format="none" sectionFormat="bare">JSON 
+        RFC 8259</xref>, has left significant ambiguity. Should currency be 
+        transmitted and serialized as JSON strings using <xref 
+        target="bigdecimal-java-oracle" format="none" sectionFormat="bare">Java 
+        style BigDecimals</xref> or <xref target="bigdecimal-mclaughlin" 
+        format="none" sectionFormat="bare">BigDecimal clones</xref>, which are 
+        NOT any kind of IETF standard? Or should the various parsers and 
+        serializers be fixed and standardized to use JSON numbers?
+      </t>
+      <t>
+        For more details on these ambiguities related to <xref 
+        target="json-rfc-8259" format="none" sectionFormat="bare">JSON</xref> ;
+      </t>
+      <t>
+        <xref target="ten64-commentary" format="none" sectionFormat="bare">@see 
+        Ten64 Commentary</xref>
+      </t>
+
+      <section anchor="the-ten10b-acronym">
+        <name>The Ten10b Acronym</name>
+        <t>
+          S Morgan:
+        </t>
+        <t>
+          In an attempt to improve human audibility, I added a small b at the 
+          end of the acronym. It seemed to have a nice ring to it, like two 21B.
+        </t>
+      </section>
+
+      <section anchor="citations-and-workflow-comments">
+        <name>Citations and Workflow Comments</name>
+        <t>
+          Finally, note that most of the Github style Markdown to RFC style XML 
+          conversion, and citations were generated by <xref target="google-gemini" 
+          format="none" sectionFormat="bare">Gemini</xref>. Also, <xref 
+          target="google-gemini-deep-research" format="none" sectionFormat="bare"
+          >Gemini Deep Research</xref>, found <xref 
+          target="math-international-standard" format="none" sectionFormat="bare"
+          >ISO/IEC 10967 integer datatype section 5.1 / International Math 
+          Standard.</xref>, and other content that I didn't track. Finally, note 
+          I dictated most of this paper using various voice-to-text AI software, 
+          which has given much of it a strangely verbal style. Feel free to 
+          reach out if you would like to correct, modify or add anything to 
+          this paper.
+        </t>
+        <t>
+          I often used the following prompt;
+        </t>
+        <sourcecode type="text">
+Find or create Academic/Footnote Markdown style and RFC XML style citations to
+        </sourcecode>
+      </section>
     </section>
   </middle>
 
@@ -171,6 +605,18 @@
         <seriesInfo name="Website" value="Compart"/>
       </reference>
 
+      <reference anchor="ecma-script" target="https://tc39.es/ecma262/">
+        <front>
+          <title>ECMAScript 2025 Language Specification</title>
+          <author>
+            <organization>Ecma International</organization>
+          </author>
+          <date year="2025" month="June"/>
+        </front>
+        <seriesInfo name="Standard" value="ECMA-262"/>
+        <seriesInfo name="Edition" value="16th"/>
+      </reference>
+    
       <reference anchor="endianness-wikipedia" target="https://en.wikipedia.org/wiki/Endianness">
         <front>
           <title>Endianness</title>
@@ -235,6 +681,29 @@
           <date year="2026" month="April"/>
         </front>
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+
+      <reference anchor="google-gemini" target="https://www.emergentmind.com/topics/google-gemini">
+        <front>
+          <title>Google Gemini: Scalable Multimodal Models</title>
+          <author>
+            <organization>Emergent Mind</organization>
+          </author>
+          <date day="14" month="January" year="2026"/>
+        </front>
+        <seriesInfo name="Website" value="Emergent Mind"/>
+      </reference>
+
+      <reference anchor="google-gemini-deep-research" target="https://i10x.ai/news/google-gemini-deep-research-analysis">
+        <front>
+          <title>Google Gemini Deep Research: AI for Complex Tasks</title>
+          <author>
+            <organization>i10X</organization>
+          </author>
+          <date day="16" month="December" year="2025"/>
+        </front>
+        <seriesInfo name="Website" value="i10X"/>
       </reference>
 
       <reference anchor="ieee-754-wikipedia" target="https://en.wikipedia.org/wiki/IEEE_754">
@@ -348,6 +817,20 @@
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
       </reference>
 
+      <reference anchor="math-international-standard" target="https://www.iso.org/standard/33632.html">
+        <front>
+          <title>Information technology -- Language independent arithmetic -- Part 1: Integer and floating point arithmetic</title>
+          <author>
+            <organization>International Organization for Standardization (ISO)</organization>
+          </author>
+          <author>
+            <organization>International Electrotechnical Commission (IEC)</organization>
+          </author>
+          <date year="2012" month="July"/>
+        </front>
+        <seriesInfo name="ISO/IEC" value="10967-1:2012"/>
+      </reference>
+
       <reference anchor="modern-western-numeral-system" target="https://www.ietf.org/archive/id/draft-morgan-ten64-00.html#modern-western-numeral-system">
         <front>
           <title>Text Encoded Base 64 Numbers (Ten64): Modern Western Numeral System</title>
@@ -382,6 +865,17 @@
         <seriesInfo name="Internet-Draft" value="draft-morgan-ten64-00"/>
       </reference>
 
+      <reference anchor="ten64-commentary" target="https://www.ietf.org/archive/id/draft-morgan-ten64-00.html#commentary">
+        <front>
+          <title>Text Encoded Base 64 Numbers (Ten64)</title>
+          <author initials="S." surname="Morgan" fullname="Scott Morgan">
+            <organization>Adligo Inc.</organization>
+          </author>
+          <date year="2026" month="April" day="1"/>
+        </front>
+        <seriesInfo name="Internet-Draft" value="draft-morgan-ten64-00"/>
+      </reference>
+
       <reference anchor="typescript" target="https://www.typescriptlang.org/">
         <front>
           <title>TypeScript: Typed JavaScript at Any Scale</title>
@@ -402,7 +896,7 @@
         <seriesInfo name="RFC" value="3629"/>
         <seriesInfo name="STD" value="63"/>
       </reference>
-      
+
       <reference anchor="xml-wc3" target="https://www.w3.org/TR/2008/REC-xml-20081126/">
         <front>
           <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
@@ -426,7 +920,7 @@
         <seriesInfo name="W3C Recommendation" value="REC-xml-20081126"/>
       </reference>
     </references>
-    
+
     <references>
       <name>Informative References</name>
     </references>

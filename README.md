@@ -23,9 +23,6 @@ This Github project will contain the Java implementation.  A Typescript implemen
 
 # Introduction
 
-
-
-
 ## Natural Number Alphabet
 
 | [UTF-8 Character](#utf-8-rfc-3629) |
@@ -113,6 +110,7 @@ Decimal Loops consist of a [Ten10b style Decimal](#decimals) followed by a [Ten1
 ##### Example F
 
 123,456.123,34&#x0305;2&#x0305;,&#x0305;3
+
 ## Commas and Comma Scheme Conventions
 
 Ten10b SHOULD use commas at the time of encoding to improve human-readability.  However, the use of commas is optional.  Also note, parsers/readers MAY simply ignore commas.  Commas MUST NOT be the first or last character in a Ten10b character sequence.
@@ -152,14 +150,60 @@ Authors and readers and writers of Ten10B SHOULD feel free to add their own sche
 
 # Implementation Requirements
 
-Ten10b implementations MUST guarantee exact equality of number being encoded and transmitted over the internet!  This guarantee MUST include both the text representation and internal binary representation of the numbers.
+Ten10b implementations MUST guarantee the exact equality of numbers being encoded and transmitted over the internet!  This guarantee MUST include both the text representation and internal binary representation of the numbers.
 
 # Implementation Recommendations
 
 Because of the [implementation requirements](#implementation-requirements) we recommend creating a one-to-one type system in the languages of your choice to convey this information.  Essentially, these recommended classes would act as an intermediary between the language's type system and the readers and writers of Ten10b.  In addition, noting the capital T at the start of the class names is short for Ten10b, we recommend the following class names.
 
-## Class Diagram
+## Java Class Diagram
 
+```
+                           +--------------------------------------+
+                           |               TNumber                |
+                           +--------------------------------------+
+                           | + static from(String in): TNumber    |
+                           | + static from(BigInteger in): TNumber|
+                           | + static from(BigDecimal in): TNumber|
+                           | + static from(double in): TNumber    |
+                           | + static from(float in): TNumber     |
+                           | + static from(int in): TNumber       |
+      +------------------->| + static from(long in): TNumber      |
+      |                    +--------------------------------------+
+      | Extends            | + isBig(): boolean                   |
++-----------------------+  | + isDecimal(): boolean               |   +-----------------------+
+|       TFraction       |  | + isDecimalOrFraction(): boolean     |   |   <<enumeration>>     |
++-----------------------+  | + isFraction(): boolean              |   |     TNumberType       |
+| - numerator: TInt     |  | + getType(): TNumberType             |   +-----------------------+
+| - denominator: TInt   |  | + toBigDecimal(): BigDecimal         |   | TInt                  |
++-----------------------+  | + toDouble(): double                 |   | TIntLoop              |
+| + getNumerator(): TInt|  | + toFloat(): float                   |   | TFraction             |
+| + getDenominator()    |  | + toString(): string                 |   | TDecimal              |
++-----------------------+  | + toString(CommaScheme...): string   |   | TDecimalLoop          |
+                           +--------------------------------------+   +-----------------------+
+                                  ^   ^   ^   ^        ^
+                                  |   |   |   |        | Extends
+          +-----------------------+   |   |   |        +-----------------------+
+          | Extends                   |   |   |                                |
++-----------------------+             |   |   |                       +-----------------------+
+|         TInt          |-------------+   |   |                       |       TDecimal        |
++-----------------------+                 |   |                       |                       |
+| - digits: BigInteger  |         Extends |   |                       +-----------------------+
++-----------------------+                 |   |                       | - digits: BigInteger  |
+                                          |   |                       | - decimalPlace: BigInt|
+                                          |   |                       +-----------------------+
++------------------------------------+    |   | Extends
+|             TIntLoop               |----+   |
++------------------------------------+        |       +------------------------------------+
+| - numbers: string                  |        +-------|            TDecimalLoop            |
++------------------------------------+                +------------------------------------+
+| + newGenerator(...): Supplier<char>|                | - decimal: TDecimal                |
+| + toString(...): string            |                | - numbers: string                  |
++------------------------------------+                +------------------------------------+
+                                                      | + newGenerator(...): Supplier<char>|
+                                                      | + toString(...): string            |
+                                                      +------------------------------------+
+```
 
 ### TNumber
 
@@ -320,6 +364,14 @@ Wikipedia contributors. "Endianness." *Wikipedia, The Free Encyclopedia*. Access
 ##### Fractions Wikipedia
 
 Wikipedia contributors. "Fraction." *Wikipedia, The Free Encyclopedia*. Accessed April 5, 2026. <https://en.wikipedia.org/wiki/Fraction>.
+
+##### Google Gemini
+
+Emergent Mind. (2026, January 14). Google Gemini: Scalable multimodal models. Retrieved from https://www.emergentmind.com/topics/google-gemini
+
+##### Google Gemini Deep Research
+
+i10X. (2025, December 16). Google Gemini Deep Research: AI for complex tasks. Retrieved from https://i10x.ai/news/google-gemini-deep-research-analysis
 
 ##### IEEE 754
 
