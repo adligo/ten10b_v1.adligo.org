@@ -57,12 +57,36 @@ This Github project will contain the Java implementation.  A Typescript implemen
 | .                                                    |
 | ,                                                    |
 | /                                                    |
+| e                                                    |
+| x                                                    |
+| ⁺                                                    |
+| ⁻                                                    |
+| ⁰                                                    |
+| ¹                                                    |
+| ²                                                    |
+| ³                                                    |
+| ⁴                                                    |
+| ⁴                                                    |
+| ⁵                                                    |
+| ⁶                                                    |
+| ⁷                                                    |
+| ⁸                                                    |
+| ⁹                                                    |
 | [u0305 / Compart (aka. Overline [i.e. &#x0305;1&#x0305;2&#x0305;3]) ](#compart) |
 
 
-# The Five Number Types
+# The Eight Number Types
 
 Any of the five number types MAY have a sign prefix which is optional.  The sign prefix MAY be either positive '+' or negative '-'.  When the sign prefix is present, it MUST be the first character of the Ten10b character sequence.
+
+##### 1) [Integers](#integers)
+##### 2) [Integer Fractions](#integer-fractions)
+##### 3) [Integer Loops](#integer-loops)
+##### 4) [Decimals(#decimals)
+##### 5) [Decimal Loops](#decimal-loops)
+##### 6) [NaNs](#nans-not-a-number-types)
+##### 7) [Scientific Notation](#e-prefix-scientific-notation)
+##### 8) [Ten64](#ten64-encoding)
 
 ### Integers
 
@@ -110,6 +134,32 @@ Decimal Loops consist of a [Ten10b style Decimal](#decimals) followed by a [Ten1
 ##### Example F
 
 123,456.123,34&#x0305;2&#x0305;,&#x0305;3
+
+### NaNs (Not a Number) Types
+
+NaNs represent a non number, this type may be useful when transmitting the results of calculations across the Internet.
+
+##### Example H
+
+```
+NaN
+```
+
+### E-Prefix Scientific Notation
+
+TODO
+The E-Prefix Scientific Notation MAY start with a OPTIONAL sign character '+' or '-'.
+The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a Ten10b style integer.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus or minus sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters.
+
+##### Example I
+
+```
+-e345x10⁻¹²³
+```
+
+### Ten64 Encoding
+
+When used in an interoperable fashion with Ten10b, Ten64 encoding MUST start with the # symbol.
 
 ## Commas and Comma Scheme Conventions
 
