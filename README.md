@@ -66,7 +66,6 @@ This Github project will contain the Java implementation.  A Typescript implemen
 | ²                                                    |
 | ³                                                    |
 | ⁴                                                    |
-| ⁴                                                    |
 | ⁵                                                    |
 | ⁶                                                    |
 | ⁷                                                    |
@@ -147,9 +146,8 @@ NaN
 
 ### E-Prefix Scientific Notation
 
-TODO
 The E-Prefix Scientific Notation MAY start with a OPTIONAL sign character '+' or '-'.
-The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a Ten10b style integer.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus or minus sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters.
+The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a Ten10b style integer.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus '⁺' or minus '⁻' sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters '⁰¹²³⁴⁵⁶⁷⁸⁹'.
 
 ##### Example I
 
@@ -160,6 +158,12 @@ The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lo
 ### Ten64 Encoding
 
 When used in an interoperable fashion with Ten10b, Ten64 encoding MUST start with the # symbol.
+
+##### Example J
+
+```
+#0123
+```
 
 ## Commas and Comma Scheme Conventions
 
