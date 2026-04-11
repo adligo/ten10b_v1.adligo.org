@@ -85,7 +85,7 @@ Any of the five number types MAY have a sign prefix which is optional.  The sign
 ##### 5) [Decimal Loops](#decimal-loops)
 ##### 6) [NaNs](#nans-not-a-number-types)
 ##### 7) [Scientific Notation](#e-prefix-scientific-notation)
-##### 8) [Ten64](#ten64-encoding)
+##### 8) [Ten64](#ten64-encoding-interoperability)
 
 ### Integers
 
@@ -155,9 +155,9 @@ The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lo
 -e345x10⁻¹²³
 ```
 
-### Ten64 Encoding
+### [Ten64 Encoding Interoperability](#ten64)
 
-When used in an interoperable fashion with Ten10b, Ten64 encoding MUST start with the # symbol.
+When used in an interoperable fashion with Ten10b, [Ten64 encoding](#ten64) MUST start with the # symbol.
 
 ##### Example J
 
@@ -213,28 +213,29 @@ Because of the [implementation requirements](#implementation-requirements) we re
 ## Java Class Diagram
 
 ```
-                           +--------------------------------------+
-                           |               TNumber                |
-                           +--------------------------------------+
-                           | + static from(String in): TNumber    |
-                           | + static from(BigInteger in): TNumber|
-                           | + static from(BigDecimal in): TNumber|
-                           | + static from(double in): TNumber    |
-                           | + static from(float in): TNumber     |
-                           | + static from(int in): TNumber       |
-      +------------------->| + static from(long in): TNumber      |
-      |                    +--------------------------------------+
-      | Extends            | + isBig(): boolean                   |
-+-----------------------+  | + isDecimal(): boolean               |   +-----------------------+
-|       TFraction       |  | + isDecimalOrFraction(): boolean     |   |   <<enumeration>>     |
-+-----------------------+  | + isFraction(): boolean              |   |     TNumberType       |
-| - numerator: TInt     |  | + getType(): TNumberType             |   +-----------------------+
-| - denominator: TInt   |  | + toBigDecimal(): BigDecimal         |   | TInt                  |
-+-----------------------+  | + toDouble(): double                 |   | TIntLoop              |
-| + getNumerator(): TInt|  | + toFloat(): float                   |   | TFraction             |
-| + getDenominator()    |  | + toString(): string                 |   | TDecimal              |
-+-----------------------+  | + toString(CommaScheme...): string   |   | TDecimalLoop          |
-                           +--------------------------------------+   +-----------------------+
+                           +---------------------------------------+
+                           |               TNumber                 |
+                           +---------------------------------------+
+                           | + static from(String in): TNumber     |
+                           | + static from(BigInteger in): TInt    |
+                           | + static from(BigDecimal in): TDecimal|
+                           | + static from(double in): TDecimal    |
+                           | + static from(float in): TDecimal     |
+                           | + static from(int in): TInt           |
+      +------------------->| + static from(long in): TInt          |
+      |                    +---------------------------------------+
+      | Extends            | + isBig(): boolean                    |
++-----------------------+  | + isDecimal(): boolean                |   +-----------------------+
+|       TFraction       |  | + isDecimalOrFraction(): boolean      |   |   <<enumeration>>     |
++-----------------------+  | + isFraction(): boolean               |   |     TNumberType       |
+| - numerator: TInt     |  | + isNaN(): boolean                    |   +-----------------------+
+| - denominator: TInt   |  | + getType(): TNumberType              |   | TInt                  |
++-----------------------+  | + toBigDecimal(): BigDecimal          |   | TIntLoop              |
+| + getNumerator(): TInt|  | + toDouble(): double                  |   | TFraction             |
+| + getDenominator()    |  | + toFloat(): float                    |   | TDecimal              |
++-----------------------+  | + toString(): string                  |   | TDecimalLoop          |
+                           | + toString(CommaScheme...): string    |   +-----------------------+
+                           +---------------------------------------+
                                   ^   ^   ^   ^        ^
                                   |   |   |   |        | Extends
           +-----------------------+   |   |   |        +-----------------------+
