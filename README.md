@@ -40,37 +40,39 @@ This Github project will contain the Java implementation.  A Typescript implemen
 
 ## Ten10b Alphabet
 
-| [UTF-8 Character](#utf-8-rfc-3629)                   |
-|------------------------------------------------------|
-| 0                                                    |
-| 1                                                    |
-| 2                                                    |
-| 3                                                    |
-| 4                                                    |
-| 5                                                    |
-| 6                                                    |
-| 7                                                    |
-| 8                                                    |
-| 9                                                    |
-| -                                                    |
-| +                                                    |
-| .                                                    |
-| ,                                                    |
-| /                                                    |
-| e                                                    |
-| x                                                    |
-| ⁺                                                    |
-| ⁻                                                    |
-| ⁰                                                    |
-| ¹                                                    |
-| ²                                                    |
-| ³                                                    |
-| ⁴                                                    |
-| ⁵                                                    |
-| ⁶                                                    |
-| ⁷                                                    |
-| ⁸                                                    |
-| ⁹                                                    |
+| [UTF-8 Character](#utf-8-rfc-3629)                                              |
+|---------------------------------------------------------------------------------|
+| 0                                                                               |
+| 1                                                                               |
+| 2                                                                               |
+| 3                                                                               |
+| 4                                                                               |
+| 5                                                                               |
+| 6                                                                               |
+| 7                                                                               |
+| 8                                                                               |
+| 9                                                                               |
+| -                                                                               |
+| +                                                                               |
+| .                                                                               |
+| ,                                                                               |
+| /                                                                               |
+| a                                                                               |
+| e                                                                               |
+| N                                                                               |
+| x                                                                               |
+| ⁺                                                                               |
+| ⁻                                                                               |
+| ⁰                                                                               |
+| ¹                                                                               |
+| ²                                                                               |
+| ³                                                                               |
+| ⁴                                                                               |
+| ⁵                                                                               |
+| ⁶                                                                               |
+| ⁷                                                                               |
+| ⁸                                                                               |
+| ⁹                                                                               |
 | [u0305 / Compart (aka. Overline [i.e. &#x0305;1&#x0305;2&#x0305;3]) ](#compart) |
 
 
@@ -118,7 +120,7 @@ Integer Loops consist of one or more characters from the [Natural Number Alphabe
 
 ### Decimals
 
-Decimals consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet) separated by a [decimal point](#decimals).  Decimals MUST have one and only one [decimal point](#decimals-wikipedia).  Decimals MUST NOT contain a fraction symbol '/'.  The text to the left side of the decimal point is called the integer part and MUST conform to the [Integer Ten10b rules](#integers).  The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros (aka. zeros at the right side of the Ten10b character sequence).  The purpose of the trailing zeros is to communicate precision.
+Decimals consist of one or more characters from the [Natural Number Alphabet](#natural-number-alphabet) separated by a [decimal point](#decimals).  Decimals MUST have one and only one [decimal point](#decimals-wikipedia).  Decimals MUST NOT contain any of the following symbol '/aexN⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹'.  The text to the left side of the decimal point is called the integer part and MUST conform to the [Integer Ten10b rules](#integers).  The text to the right side of the decimal point is called the decimal part and MAY have commas as well as trailing zeros (aka. zeros at the right side of the Ten10b character sequence).  The purpose of the trailing zeros is to communicate precision.
 
 ###### Example D
 
@@ -146,7 +148,7 @@ NaN
 
 ### E-Prefix Scientific Notation
 
-The E-Prefix Scientific Notation MAY start with a OPTIONAL sign character '+' or '-'.
+The E-Prefix Scientific Notation MAY start with an OPTIONAL sign character '+' or '-'.
 The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a Ten10b style integer.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus '⁺' or minus '⁻' sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters '⁰¹²³⁴⁵⁶⁷⁸⁹'.
 
 ##### Example I
