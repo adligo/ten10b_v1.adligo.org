@@ -81,7 +81,7 @@ Any of the five number types MAY have a sign prefix which is optional.  The sign
 ##### 1) [Integers](#integers)
 ##### 2) [Integer Fractions](#integer-fractions)
 ##### 3) [Integer Loops](#integer-loops)
-##### 4) [Decimals(#decimals)
+##### 4) [Decimals](#decimals)
 ##### 5) [Decimal Loops](#decimal-loops)
 ##### 6) [NaNs](#nans-not-a-number-types)
 ##### 7) [Scientific Notation](#e-prefix-scientific-notation)
