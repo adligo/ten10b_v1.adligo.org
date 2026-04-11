@@ -149,7 +149,7 @@ NaN
 ### E-Prefix Scientific Notation
 
 The E-Prefix Scientific Notation MAY start with an OPTIONAL sign character '+' or '-'.
-The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a Ten10b style integer.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus '⁺' or minus '⁻' sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters '⁰¹²³⁴⁵⁶⁷⁸⁹'.
+The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lowercase 'e' from the Ten10b alphabet.  The lowercase 'e' MUST be followed by a single Ten10b style {[Integer](#integers), [Decimal](#decimals), or [Decimal Loop](#decimal-loops)}.  The Ten10B style integer MUST be followed by the lowercase 'x' character.  The lowercase x character MUST be followed by another Ten10b style integer.  Finally, an exponent MAY be added, including the OPTIONAL superscript plus '⁺' or minus '⁻' sign, with a-subsequent Ten10b style integer comprising of ONLY superscript integer characters '⁰¹²³⁴⁵⁶⁷⁸⁹'.
 
 ##### Example I
 
