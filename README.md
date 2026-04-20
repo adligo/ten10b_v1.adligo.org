@@ -4,7 +4,7 @@
 
 Ten10b is a [positional number system](#positional-number-systems-wikipedia) designed to be encoded in [UTF-8](#utf-8-rfc-3629) text. Ten10b is based on the system you likely learned in elementary school and used throughout your mathematics courses.  However, it is a [discrete system](#discrete-system-wikipedia) designed to provide the maximum clarity for the serialization of numbers (which fit on a single line of text) across the internet.  Although the numbers encoded by the Ten10b system MAY represent a point on a continuous curve (aka an [integral](#integral-wikipedia) or simply [analog](#analog-wikipedia)), the text itself is a [discreet system](#discrete-system-wikipedia).  In addition, it SHOULD be noted that since all [binary number systems](#binary-number-systems-wikipedia) are discrete, by proxy, all number systems built on top of them are by proxy [discrete number systems](#discrete-system-wikipedia).  This includes [floating point numbers](#ieee-754) which MAY introduce rounding and extra decimal place issues when printed or converted to other [positional number systems](#positional-number-systems-wikipedia).
 
-Ten10b codifies five types of numbers which MAY be represented with [UTF-8 text](#utf-8-rfc-3629) as follows [Integers](#integers), [Integer Fractions](#integer-fractions), [Integer Loops](#integer-loops), [Decimals](#decimals), and [Decimal Loops (aka. Repeating Decimals)](#decimal-loops).  Ten10b allows for numbers to be of any size, any number of characters.  However, since Ten10b numbers MUST be parsable from a single line of text, [line wrapping](#line-wrapping-wikipedia) SHOULD NOT be used with Ten10b.  To improve human-readability, we suggest using [Ten64](#ten64) for numbers that do NOT fit on a single line.  Finally, Ten10b users SHOULD use a 92-character number sequence character limiter.
+Ten10b codifies nine types of numbers which MAY be represented with [UTF-8 text](#utf-8-rfc-3629) as follows [Integers](#integers), [Integer Fractions](#integer-fractions), [Integer Loops](#integer-loops), [Decimals](#decimals), and [Decimal Loops (aka. Repeating Decimals)](#decimal-loops), [NaNs](#nans-not-a-number-types), [E-Prefix Scientific Notation](#e-prefix-scientific-notation), [H-Prefix Hexadecimal](#h-prefix-hexadecimal), and finally [Ten64](#ten64-encoding-interoperability).  Ten10b allows for numbers to be of any size, any number of characters.  However, since Ten10b numbers MUST be parsable from a single line of text, [line wrapping](#line-wrapping-wikipedia) SHOULD NOT be used with Ten10b.  To improve human-readability, we suggest using [Ten64](#ten64) for numbers that do NOT fit on a single line.  Finally, Ten10b users SHOULD use a 92-character number sequence character limiter.
 
 # Internet Draft
 
@@ -17,7 +17,7 @@ Ten10b codifies five types of numbers which MAY be represented with [UTF-8 text]
 
 # Implementations
 
-This Github project will contain the Java implementation.  A Typescript implementation will live at;
+This Github project will contain the Java implementation.  A Typescript (Javascript) implementation will live at;
 
 - [https://github.com/adligo/ten10b_v1.ts.adligo.org](https://github.com/adligo/ten10b_v1.ts.adligo.org)
 
@@ -38,7 +38,30 @@ This Github project will contain the Java implementation.  A Typescript implemen
 | 8                                  |
 | 9                                  |
 
+## Hexadecimal Alphabet
+
+| [UTF-8 Character](#utf-8-rfc-3629) | Binary Quartet |
+|------------------------------------|----------------|
+| 0                                  |      0000      |
+| 1                                  |      0001      |
+| 2                                  |      0010      |
+| 3                                  |      0011      |
+| 4                                  |      0100      |
+| 5                                  |      0101      |
+| 6                                  |      0110      |
+| 7                                  |      0111      |
+| 8                                  |      1000      |
+| 9                                  |      1001      |
+| a                                  |      1010      |
+| b                                  |      1011      |
+| c                                  |      1100      |
+| d                                  |      1101      |
+| e                                  |      1110      |
+| f                                  |      1111      |
+
 ## Ten10b Alphabet
+
+Note the Ten10b Alphabet also actually includes the [Ten64 Alphabet](#ten64) which is NOT completely listed here.  The pound symbol '#' from the [Ten64 Alphabet](#ten64) is included and is used to identify a Ten10b or [Ten64](#ten64) as [Ten64](#ten64).
 
 | [UTF-8 Character](#utf-8-rfc-3629)                                              |
 |---------------------------------------------------------------------------------|
@@ -52,6 +75,14 @@ This Github project will contain the Java implementation.  A Typescript implemen
 | 7                                                                               |
 | 8                                                                               |
 | 9                                                                               |
+| a                                                                               |
+| b                                                                               |
+| c                                                                               |
+| d                                                                               |
+| e                                                                               |
+| f                                                                               |
+| h                                                                               |
+| #                                                                               |
 | -                                                                               |
 | +                                                                               |
 | .                                                                               |
@@ -76,6 +107,7 @@ This Github project will contain the Java implementation.  A Typescript implemen
 | [u0305 / Compart (aka. Overline [i.e. &#x0305;1&#x0305;2&#x0305;3]) ](#compart) |
 
 
+
 # The Eight Number Types
 
 Any of the five number types MAY have a sign prefix which is optional.  The sign prefix MAY be either positive '+' or negative '-'.  When the sign prefix is present, it MUST be the first character of the Ten10b character sequence.
@@ -87,7 +119,8 @@ Any of the five number types MAY have a sign prefix which is optional.  The sign
 ##### 5) [Decimal Loops](#decimal-loops)
 ##### 6) [NaNs](#nans-not-a-number-types)
 ##### 7) [Scientific Notation](#e-prefix-scientific-notation)
-##### 8) [Ten64](#ten64-encoding-interoperability)
+##### 8) [Hexadecimal](#h-prefix-hexadecimal)
+##### 9) [Ten64](#ten64-encoding-interoperability)
 
 ### Integers
 
@@ -157,11 +190,22 @@ The E-Prefix Scientific Notation MUST start (first or 2nd character) with the lo
 -e345x10⁻¹²³
 ```
 
-### [Ten64 Encoding Interoperability](#ten64)
+### H-Prefix Hexadecimal
+
+H-Prefix Hexadecimal MAY start with an OPTIONAL sign character '+' or '-'.
+H-Prefix Hexadecimal MUST start (first or 2nd character) with the lowercase 'h' from the Ten10b alphabet.  The lowercase 'h' MUST be followed by a characters from the [Hexadecimal Alphabet](#hexadecimal-alphabet), other characters from the [Ten10b Alphabet](#ten10b-alphabet).
+
+##### Example J
+
+```
+-h345abfff
+```
+
+### Ten64 Encoding Interoperability
 
 When used in an interoperable fashion with Ten10b, [Ten64 encoding](#ten64) MUST start with the # symbol.
 
-##### Example J
+##### Example K
 
 ```
 #0123
@@ -266,7 +310,7 @@ Because of the [implementation requirements](#implementation-requirements) we re
 
 This is the abstract class with static factory methods named <i><b>from* (pronounced 'from star')</b></i>.  The <i><b>from*</b></i> methods MAY be overloaded or MAY have extension methods depending on if your language allows method overloading.
 
-i.e. [Java](#java) Psudocode
+i.e. [Java](#java-language-specification) Psudocode
 
 ```
 String s = TNumber.from((float) 10.19).toString();
@@ -313,7 +357,7 @@ It MUST return false from the isDecimalOrFraction method.  It MUST return false 
 
 TFraction is the representation of a [Ten10b Decimal](#decimals).  It MAY return either true or false from the <i><b>isBig</b></i> method, and SHOULD base this decision around the semantics of the libraries in the language it is implemented in.
 
-TDecimals MUST be implemented using a BigInteger type (i.e. [BigInt](#ecma-script), [BigInteger](#java-language-specification)) for the numeric part (integer and decimal parts), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).  TDecimals MUST also be implemented using a 2nd BigInteger type (i.e. [BigInt](#ecma-script), [BigInteger](#java-language-specification)) to track the number of [(base/radix 10) decimal places](#base-10), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).
+TDecimals MUST be implemented using a BigInteger type (i.e. [BigInt](#ecmascript-2025), [BigInteger](#java-language-specification)) for the numeric part (integer and decimal parts), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).  TDecimals MUST also be implemented using a 2nd BigInteger type (i.e. [BigInt](#ecmascript-2025), [BigInteger](#java-language-specification)) to track the number of [(base/radix 10) decimal places](#base-10), which conforms to [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).
 
 It MUST return true from the <i><b>isDecimalOrFraction</b></i> method.  It MUST return true from the <i><b>isDecimal</b></i> method.  It MUST return false from the <i><b>isFraction</b></i> method.  It MUST return false from the <i><b>isLoop</b></i> method.
 
@@ -330,7 +374,7 @@ It MUST return true from the <i><b>isDecimalOrFraction</b></i> method.  It MUST 
 
 [JSON](#json-rfc-8259) is based on UTF-8 and by proxy, Ten10b is compatible with [JSON](#json-rfc-8259) strings.
 
-### [XCN](#xcn-github)
+### [XCN](#xcn-git-repository)
 
 Extensible (eXtensible) Classification System is a downstream client and will be compatible by default.
 
@@ -340,7 +384,7 @@ Extensible (eXtensible) Classification System is a downstream client and will be
 
 # Commentary
 
-The motivation for this internet draft is largely a vague gap that exists between the [JSON RFC 8259](#json-rfc-8259) and the [ECMAScript specification](#ecma).  Instead of providing clarity (which is the purpose of RFCs), we feel the [JSON RFC 8259](#json-rfc-8259), has left significant ambiguity.  Should currency be transmitted and serialized as JSON strings using [Java style BigDecimals]() or [BigDecimal clones], which are NOT any kind of IETF standard?  Or should the various parsers and serializers be fixed and standardized to use JSON numbers?
+The motivation for this internet draft is largely a vague gap that exists between the [JSON RFC 8259](#json-rfc-8259) and the [ECMAScript specification](#ecmascript-2025).  Instead of providing clarity (which is the purpose of RFCs), we feel the [JSON RFC 8259](#json-rfc-8259), has left significant ambiguity.  Should currency be transmitted and serialized as JSON strings using [Java style BigDecimals]() or [BigDecimal clones], which are NOT any kind of IETF standard?  Or should the various parsers and serializers be fixed and standardized to use JSON numbers?
 
 For more details on these ambiguities related to [JSON](#json-rfc-8259) ;
 
@@ -485,6 +529,11 @@ Microsoft. "TypeScript: Typed JavaScript at Any Scale." Accessed April 5, 2026. 
 Yergeau, F. "UTF-8, a transformation format of ISO 10646." RFC 3629, STD 63, November 2003. <https://www.rfc-editor.org/info/rfc3629>.
 
 The document must be structured according to the W3C XML specification.[^1]
+
+
+##### XCN Git Repository
+
+Adligo Inc. (n.d.). *xcn_v1.adligo.org: A place for eXtensible Classification Notation* [Source code]. GitHub. https://github.com/adligo/xcn_v1.adligo.org
 
 ##### XML WC3
 

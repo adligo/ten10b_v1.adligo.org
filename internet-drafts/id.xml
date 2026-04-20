@@ -897,6 +897,15 @@ Find or create Academic/Footnote Markdown style and RFC XML style citations to
         <seriesInfo name="STD" value="63"/>
       </reference>
 
+      <reference anchor="xcn-git-repository" target="https://github.com/adligo/xcn_v1.adligo.org">
+        <front>
+          <title>xcn_v1.adligo.org (eXtensible Classification Notation)</title>
+          <author initials="S." surname="Adligo" fullname="Scott Adligo (Adligo Inc)"/>
+          <date/>
+        </front>
+        <seriesInfo name="GitHub Repository" value=""/>
+      </reference>
+
       <reference anchor="xml-wc3" target="https://www.w3.org/TR/2008/REC-xml-20081126/">
         <front>
           <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
